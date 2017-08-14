@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{9b39c75a-27a9-45a1-bb74-4e5871170fbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models\Particle">
+      <UniqueIdentifier>{a8eabea0-0b47-47a8-9c8a-40e2f059c423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{2950bd3c-1135-4c84-9e80-f3ef1c022ce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models\SPHFluid">
+      <UniqueIdentifier>{7d4b48c6-f4a7-464f-b808-df4422a1b220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{ab1bfbd4-9ea4-4563-bd2a-074af1bf92db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\PhysicsManager">
+      <UniqueIdentifier>{600d1803-1cc5-4bc1-bcf4-902c44a06a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\PhysicsManager\Collision">
+      <UniqueIdentifier>{1fd1f7c8-66f3-4a9a-a788-296b5193d9be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\PhysicsManager\Integrate">
+      <UniqueIdentifier>{6c35fb1c-c1ef-45e8-a4fa-eb0c14bb57f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\PhysicsManager\Fluid">
+      <UniqueIdentifier>{eecb5c58-3fdc-451b-86b0-d7f1afef935f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Particle\particle.cpp">
+      <Filter>Source Files\Models\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\renderable_object.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\SPHFluid\sph_fluid.cpp">
+      <Filter>Source Files\Models\SPHFluid</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\physics_engine.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Particle\particle.h">
+      <Filter>Source Files\Models\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\renderable_object.h">
+      <Filter>Source Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\SPHFluid\sph_fluid.h">
+      <Filter>Source Files\Models\SPHFluid</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\physics_engine.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Fluid\Fluid.h">
+      <Filter>Source Files\Physics\PhysicsManager\Fluid</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
