@@ -1,21 +1,24 @@
 #pragma once
 
+#include "..\..\stdafx.h"
+
 namespace physics_engine
 {
 	class SPHFluid
 	{
 	public:
-		int positions;
-		int velocity;
-		int acceleration;
-		int force;
 
-		int color_diffuse;
-		int ambient_diffuse;
-		int specular_diffuse;
+		enum SSBO_TYPES {
+			POSITIONS,
+			VELOCITY,
+			ACCELERATION,
+			FORCE,
+			MASS,
+			RADIUS,
+			VISCOSITY,
+			SSBO_TYPES_SIZE
+		};
 
-		int mass;
-		int radius;
-		int viscosity;
+		GLuint ssbo[SSBO_TYPES_SIZE];
 	};
 }

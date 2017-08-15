@@ -1,28 +1,53 @@
 #include "sph_fluid.h"
 
-SPHFluid::SPHFluid() 
+SPHFluid::SPHFluid()
 {
 	//image allocation
+	glGenBuffers(SSBO_TYPES_SIZE, ssbo);
+
+	setFluidSSBOs();
+}
+
+SPHFluid::~SPHFluid()
+{
+	glDeleteBuffers(SSBO_TYPES_SIZE, ssbo);
+}
+
+void SPHFluid::setFluidSSBOs()
+{
 	physics_engine::SPHFluid fluid_images;
-
-	fluid_images.positions = 0;
-	fluid_images.velocity = 0;
-	fluid_images.acceleration = 0;
-	fluid_images.force = 0;
-
-	fluid_images.color_diffuse = 0;
-	fluid_images.ambient_diffuse = 0;
-	fluid_images.specular_diffuse = 0;
-
-	fluid_images.mass = 0;
-	fluid_images.radius = 0;
-	fluid_images.viscosity = 0;
+	fluid_images.ssbo[fluid_images.POSITIONS]= ssbo[POSITIONS];
+	fluid_images.ssbo[fluid_images.VELOCITY] = ssbo[VELOCITY];
+	fluid_images.ssbo[fluid_images.ACCELERATION] = ssbo[ACCELERATION];
+	fluid_images.ssbo[fluid_images.FORCE] = ssbo[FORCE];
+	fluid_images.ssbo[fluid_images.RADIUS] = ssbo[RADIUS];
+	fluid_images.ssbo[fluid_images.MASS] = ssbo[MASS];
+	fluid_images.ssbo[fluid_images.VISCOSITY] = ssbo[VISCOSITY];
 	physics_engine::PhysicsEngine::getInstance().setFluid(fluid_images);
 }
 
-void SPHFluid::updateImages(int startIndex, int length)
+template<class T>
+void SPHFluid::updateSSBO(GLuint ssbo, std::vector<T> data)
 {
+	void* pos = data.size() > 0 ? &data[0] : NULL;
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() *
+		sizeof(T), pos, GL_DYNAMIC_DRAW);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+}
 
+void SPHFluid::updateSSBOs()
+{	
+	updateSSBO(ssbo[POSITIONS],m_vec_positions);
+	updateSSBO(ssbo[VELOCITY], m_vec_velocity);
+	updateSSBO(ssbo[ACCELERATION],m_vec_acceleration);
+	updateSSBO(ssbo[FORCE],m_vec_force);
+	updateSSBO(ssbo[COLOR_DIFFUSE], m_vec_color_diffuse);
+	updateSSBO(ssbo[COLOR_AMBIENT], m_vec_color_ambient);
+	updateSSBO(ssbo[COLOR_SPECULAR], m_vec_color_specular);
+	updateSSBO(ssbo[MASS], m_vec_mass);
+	updateSSBO(ssbo[VISCOSITY], m_vec_radius);
+	updateSSBO(ssbo[RADIUS], m_vec_viscosity);
 }
 
 void SPHFluid::resizeVectors(int more_size)
@@ -65,7 +90,7 @@ void SPHFluid::addParticles(std::vector<Particle> p)
 	{
 		addParticle(particle);
 	}
-	updateImages(m_vec_positions.size() - p.size(), p.size());
+	updateSSBOs();
 	m_particle_count += p.size();
 }
 

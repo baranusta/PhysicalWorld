@@ -3,22 +3,27 @@
 #include "..\Particle\particle.h"
 #include "..\..\Physics\physics_engine.h"
 
+
+
 class SPHFluid
 {
 private:
-	//images
-	int m_img_positions;
-	int m_img_velocity;
-	int m_img_acceleration;
-	int m_img_force;
+	//ssbo
+	enum SSBO_TYPES {
+		POSITIONS,
+		VELOCITY,
+		ACCELERATION,
+		FORCE,
+		COLOR_DIFFUSE,
+		COLOR_AMBIENT,
+		COLOR_SPECULAR,
+		MASS,
+		RADIUS,
+		VISCOSITY,
+		SSBO_TYPES_SIZE
+	};
 
-	int m_img_color_diffuse;
-	int m_img_color_ambient;
-	int m_img_color_specular;
-
-	int m_img_mass;
-	int m_img_radius;
-	int m_img_viscosity;
+	GLuint ssbo[SSBO_TYPES_SIZE];
 	
 	//values
 	std::vector<glm::vec3> m_vec_positions;
@@ -36,12 +41,20 @@ private:
 
 	int m_particle_count = 0;
 private:
-	void updateImages(int startIndex, int length);
+
+	template<class T>
+	void updateSSBO(GLuint ssbo, std::vector<T> data);
+	void updateSSBOs();
+	void setFluidSSBOs();
+	
 	void resizeVectors(int more_size);
 	void addParticle(Particle particle);
 
+
 public:
 	SPHFluid();
+	~SPHFluid();
+	
 	//getter
 	int getParticleCount();
 
