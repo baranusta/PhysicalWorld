@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\Models\Particle\particle.h"
+#include "PhysicsManagers\Fluid\SPHStrategies\sph_strategies.h"
 
 namespace physics_engine
 {
@@ -8,27 +8,9 @@ namespace physics_engine
 	{
 	private:
 
-		struct solid_objects {
-			int vertices;
-			//object to vertices. similar to Compressed Row Structure
-			int mapping;
-
-			int mobility;
-			int positions;
-			int velocity;
-			int acceleration;
-			int force;
-
-			int rotations;
-			int angular_velocity;
-			int angular_acceleration;
-			int torque;
-		};
-
-		struct SPHParticles {
-		};
-
-
+		SPHFluid m_fluid;
+		SPHStrategies* m_sphStrategy;
+		
 		PhysicsEngine() = default;
 
 	public:
@@ -38,12 +20,11 @@ namespace physics_engine
 		static PhysicsEngine& getInstance()
 		{
 			static PhysicsEngine engine;
-
 			return engine;
 		}
 
+		void setFluid(SPHFluid);
+
 		void update();
-		unsigned int addFluid(std::vector<Particle> particles);
-		unsigned int addFluid(std::vector<Particle> particles, unsigned int index);
 	};
 }

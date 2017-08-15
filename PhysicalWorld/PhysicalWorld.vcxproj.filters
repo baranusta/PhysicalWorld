@@ -28,17 +28,23 @@
     <Filter Include="Source Files\Rendering">
       <UniqueIdentifier>{ab1bfbd4-9ea4-4563-bd2a-074af1bf92db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Physics\PhysicsManager">
+    <Filter Include="Source Files\Physics\Managers">
       <UniqueIdentifier>{600d1803-1cc5-4bc1-bcf4-902c44a06a7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Physics\PhysicsManager\Collision">
+    <Filter Include="Source Files\Physics\Managers\Collision">
       <UniqueIdentifier>{1fd1f7c8-66f3-4a9a-a788-296b5193d9be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Physics\PhysicsManager\Integrate">
+    <Filter Include="Source Files\Physics\Managers\Integrate">
       <UniqueIdentifier>{6c35fb1c-c1ef-45e8-a4fa-eb0c14bb57f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Physics\PhysicsManager\Fluid">
+    <Filter Include="Source Files\Physics\Managers\Fluid">
       <UniqueIdentifier>{eecb5c58-3fdc-451b-86b0-d7f1afef935f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Models">
+      <UniqueIdentifier>{a84ae5da-c17e-4193-86e7-4dfb91cef049}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Managers\Fluid\SPHStrategies">
+      <UniqueIdentifier>{318a7789-ed35-4fc3-a147-a4e4652a0b13}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -77,8 +83,17 @@
     <ClInclude Include="Physics\physics_engine.h">
       <Filter>Source Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\PhysicsManagers\Fluid\Fluid.h">
-      <Filter>Source Files\Physics\PhysicsManager\Fluid</Filter>
+    <ClInclude Include="Physics\Models\sph_fluid.h">
+      <Filter>Source Files\Physics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\sph_strategies.h">
+      <Filter>Source Files\Physics\Managers\Fluid\SPHStrategies</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\dummy_sph_strategy.h">
+      <Filter>Source Files\Physics\Managers\Fluid\SPHStrategies</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Models\New folder\solid_object.h">
+      <Filter>Source Files\Physics\Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

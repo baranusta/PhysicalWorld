@@ -103,7 +103,10 @@
   <ItemGroup>
     <ClInclude Include="Models\Particle\particle.h" />
     <ClInclude Include="Models\SPHFluid\sph_fluid.h" />
-    <ClInclude Include="Physics\PhysicsManagers\Fluid\Fluid.h" />
+    <ClInclude Include="Physics\Models\New folder\solid_object.h" />
+    <ClInclude Include="Physics\Models\sph_fluid.h" />
+    <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\dummy_sph_strategy.h" />
+    <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\sph_strategies.h" />
     <ClInclude Include="Physics\physics_engine.h" />
     <ClInclude Include="Rendering\renderable_object.h" />
     <ClInclude Include="stdafx.h" />

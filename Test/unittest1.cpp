@@ -10,36 +10,35 @@ namespace Model
 	{
 		TEST_CLASS(FluidModel)
 		{
+		private:
+			SPHFluid fluid;
 		public:
-
-			TEST_METHOD(addParticleWithNoFluidBefore)
+			TEST_CLASS_INITIALIZE(methodName)
 			{
-				// TODO: Your test code here
-				SPHFluid a;
-				Assert::AreEqual(unsigned int(-1), a.getParticleSIndex());
-				a.addParticles({Particle()});
-				Assert::AreEqual(unsigned int(0), a.getParticleSIndex());
+				// test class initialization  code
+
 			}
 
-			TEST_METHOD(addParticleWithFluidBefore)
+			TEST_METHOD(add_0_Particles)
 			{
-				// TODO: Your test code here
-				SPHFluid a;
-				SPHFluid b;
-				a.addParticles({ Particle() });
-				b.addParticles({ Particle() });
-				Assert::AreNotEqual(unsigned int(1), b.getParticleSIndex());
-				Assert::AreNotEqual(unsigned int(0), a.getParticleSIndex());
+				fluid.addParticles({});
+				Assert::AreEqual(0, fluid.getParticleCount());
 			}
 
-			TEST_METHOD(addParticleWithFluidBeforeIndexCheck)
+			TEST_METHOD(add_Multiple_Particles)
 			{
-				// TODO: Your test code here
-				SPHFluid a;
-				SPHFluid b;
-				a.addParticles({ Particle(),Particle(),Particle() });
-				b.addParticles({ Particle() });
-				Assert::AreNotEqual(unsigned int(2), b.getParticleSIndex());
+				fluid.addParticles({Particle(),Particle() ,Particle() ,Particle() ,Particle() ,
+									Particle() ,Particle() ,Particle(),Particle(),Particle() });
+				Assert::AreEqual(10, fluid.getParticleCount());
+				
+			}
+
+			TEST_METHOD(add_10000_Particles)
+			{
+				std::vector<Particle> particles(10000);
+				fluid.addParticles(particles);
+				Assert::AreEqual(10000, fluid.getParticleCount());
+				
 			}
 		};
 	}
