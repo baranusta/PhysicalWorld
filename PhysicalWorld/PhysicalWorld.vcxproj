@@ -66,8 +66,9 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);$(NTEST) 1</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/D "NTEST" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,8 +83,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);$(NTEST) 1</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/D "NTEST" %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -99,6 +101,7 @@
     <ClCompile Include="Models\SPHFluid\sph_fluid.cpp" />
     <ClCompile Include="Physics\physics_engine.cpp" />
     <ClCompile Include="Rendering\renderable_object.cpp" />
+    <ClCompile Include="ShaderController\shader_controller.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,10 +114,15 @@
     <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\sph_strategies.h" />
     <ClInclude Include="Physics\physics_engine.h" />
     <ClInclude Include="Rendering\renderable_object.h" />
+    <ClInclude Include="ShaderController\compute_shader_controller.h" />
+    <ClInclude Include="ShaderController\render_shader_controller.h" />
+    <ClInclude Include="ShaderController\shader.h" />
+    <ClInclude Include="ShaderController\shader_controller.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Physics\PhysicsManagers\Fluid\SPHStrategies\dummy_sph_compute.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

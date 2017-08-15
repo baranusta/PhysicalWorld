@@ -1,6 +1,7 @@
 #include "sph_fluid.h"
 
-SPHFluid::SPHFluid()
+SPHFluid::SPHFluid(physics_engine::SPHFluid* sphFluid)
+	:m_physics_ssbo(sphFluid)
 {
 	//image allocation
 	glGenBuffers(SSBO_TYPES_SIZE, ssbo);
@@ -15,24 +16,22 @@ SPHFluid::~SPHFluid()
 
 void SPHFluid::setFluidSSBOs()
 {
-	physics_engine::SPHFluid fluid_images;
-	fluid_images.ssbo[fluid_images.POSITIONS]= ssbo[POSITIONS];
-	fluid_images.ssbo[fluid_images.VELOCITY] = ssbo[VELOCITY];
-	fluid_images.ssbo[fluid_images.ACCELERATION] = ssbo[ACCELERATION];
-	fluid_images.ssbo[fluid_images.FORCE] = ssbo[FORCE];
-	fluid_images.ssbo[fluid_images.RADIUS] = ssbo[RADIUS];
-	fluid_images.ssbo[fluid_images.MASS] = ssbo[MASS];
-	fluid_images.ssbo[fluid_images.VISCOSITY] = ssbo[VISCOSITY];
-	physics_engine::PhysicsEngine::getInstance().setFluid(fluid_images);
+	m_physics_ssbo->ssbo[m_physics_ssbo->POSITIONS]= ssbo[POSITIONS];
+	m_physics_ssbo->ssbo[m_physics_ssbo->VELOCITY] = ssbo[VELOCITY];
+	m_physics_ssbo->ssbo[m_physics_ssbo->ACCELERATION] = ssbo[ACCELERATION];
+	m_physics_ssbo->ssbo[m_physics_ssbo->FORCE] = ssbo[FORCE];
+	m_physics_ssbo->ssbo[m_physics_ssbo->RADIUS] = ssbo[RADIUS];
+	m_physics_ssbo->ssbo[m_physics_ssbo->MASS] = ssbo[MASS];
+	m_physics_ssbo->ssbo[m_physics_ssbo->VISCOSITY] = ssbo[VISCOSITY];
 }
 
 template<class T>
 void SPHFluid::updateSSBO(GLuint ssbo, std::vector<T> data)
 {
-	void* pos = data.size() > 0 ? &data[0] : NULL;
+	void* dataIndex = data.size() > 0 ? &data[0] : NULL;
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
 	glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() *
-		sizeof(T), pos, GL_DYNAMIC_DRAW);
+		sizeof(T), dataIndex, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 

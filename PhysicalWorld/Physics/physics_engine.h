@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PhysicsManagers\Fluid\SPHStrategies\sph_strategies.h"
+#include "PhysicsManagers\Fluid\SPHStrategies\dummy_sph_strategy.h"
 
 namespace physics_engine
 {
@@ -11,7 +11,7 @@ namespace physics_engine
 		SPHFluid m_fluid;
 		SPHStrategies* m_sphStrategy;
 		
-		PhysicsEngine() = default;
+		PhysicsEngine();
 
 	public:
 		PhysicsEngine(PhysicsEngine&) = delete;
@@ -23,8 +23,10 @@ namespace physics_engine
 			return engine;
 		}
 
-		void setFluid(SPHFluid);
+	public:
+		SPHFluid* getFluid();
 
 		void update();
+		
 	};
 }

@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Physics\Managers\Fluid\SPHStrategies">
       <UniqueIdentifier>{318a7789-ed35-4fc3-a147-a4e4652a0b13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ShaderControllers">
+      <UniqueIdentifier>{cf4aa4de-a2c2-4e48-abe5-612d3eaaa2b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderController\shader_controller.cpp">
+      <Filter>Source Files\ShaderControllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,8 +107,23 @@
     <ClInclude Include="Engine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderController\shader_controller.h">
+      <Filter>Source Files\ShaderControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderController\render_shader_controller.h">
+      <Filter>Source Files\ShaderControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderController\compute_shader_controller.h">
+      <Filter>Source Files\ShaderControllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderController\shader.h">
+      <Filter>Source Files\ShaderControllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Physics\PhysicsManagers\Fluid\SPHStrategies\dummy_sph_compute.glsl">
+      <Filter>Source Files\Physics\Managers\Fluid\SPHStrategies</Filter>
+    </None>
   </ItemGroup>
 </Project>

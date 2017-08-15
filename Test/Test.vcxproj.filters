@@ -38,8 +38,17 @@
     <ClCompile Include="..\PhysicalWorld\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\PhysicalWorld\ShaderController\shader_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resource\compute_shader_correct.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resource\compute_shader_wrong.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

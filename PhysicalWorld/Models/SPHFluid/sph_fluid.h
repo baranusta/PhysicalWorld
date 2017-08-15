@@ -24,6 +24,7 @@ private:
 	};
 
 	GLuint ssbo[SSBO_TYPES_SIZE];
+	physics_engine::SPHFluid* m_physics_ssbo;
 	
 	//values
 	std::vector<glm::vec3> m_vec_positions;
@@ -52,7 +53,7 @@ private:
 
 
 public:
-	SPHFluid();
+	SPHFluid(physics_engine::SPHFluid* a = physics_engine::PhysicsEngine::getInstance().getFluid());
 	~SPHFluid();
 	
 	//getter
