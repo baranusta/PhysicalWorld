@@ -7,7 +7,6 @@
 class ComputeShaderController :public ShaderController
 {
 private:
-	GLuint m_cShader, prog;
 	std::string fileName_C;
 
 public:
@@ -15,6 +14,11 @@ public:
 	{
 		this->fileName_C = fileName_C;
 		createShader(fileName_C);
+
+		GLuint err;
+		while ((err = glGetError()) != GL_NO_ERROR) {
+			std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
+		}
 	}
 
 	virtual void attachShaders(GLuint prog)
@@ -27,6 +31,11 @@ public:
 		glDetachShader(prog, compute_shader);
 
 		glDeleteShader(compute_shader);
+
+		GLuint err;
+		while ((err = glGetError()) != GL_NO_ERROR) {
+			std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
+		}
 	}
 
 	void dispatch(unsigned int xSize, unsigned int ySize, unsigned int zSize)

@@ -12,12 +12,14 @@ class ShaderController {
 
 
 private:
-	static std::unordered_map<std::string, Shader> shaders;
+	static std::unordered_map<std::string, Shader*> shaders;
 	static std::string currentlyUsedName;
 
-	std::string name;
 
 protected:
+
+	std::string m_name;
+
 	std::string readFile(std::string fileName)
 	{
 #ifndef NTEST
@@ -59,10 +61,6 @@ protected:
 
 	void createShader(std::string name)
 	{
-		GLenum err;
-		while ((err = glGetError()) != GL_NO_ERROR) {
-			std::cout << "OpenGL errorbara1: " << err << gluErrorString(err) << std::endl;
-		}
 		if (shaders.find(name) == shaders.end())
 		{
 			GLuint prog = glCreateProgram();
@@ -82,10 +80,11 @@ protected:
 				std::cout << logBuffer.data();
 				throw std::logic_error(logBuffer.data());
 			}
-			shaders.insert({ name, Shader(prog)});
+			shaders.insert({ name, new Shader(prog)});		
 		}
 		else
-			shaders[name].usedBy++;
+			shaders[name]->usedBy++;
+		m_name = name;
 	}
 
 public:
@@ -95,15 +94,19 @@ public:
 	}
 	
 
-	GLuint getProgId() { return shaders[name].shaderProgram; }
+	GLuint getProgId() { return shaders[m_name]->shaderProgram; }
 
 	~ShaderController() 
 	{
-		if (shaders[name].usedBy == 1)
+		if (shaders.find(m_name) != shaders.end())
 		{
-			shaders.erase(name);
+			if (shaders[m_name]->usedBy == 1)
+			{
+				delete shaders[m_name];
+				shaders.erase(m_name);
+			}
+			else
+				shaders[m_name]->usedBy--;
 		}
-		else
-			shaders[name].usedBy--;
 	}
 };

@@ -7,13 +7,13 @@
 class Particle
 {
 public:
-	glm::vec3 position;
-	glm::vec3 velocity;
-	glm::vec3 acceleration;
-	glm::vec3 force;
+	glm::vec4 position;
+	glm::vec4 velocity;
+	glm::vec4 acceleration;
+	glm::vec4 force;
 
-	glm::vec3 color_diffuse;
-	glm::vec3 color_ambient;
+	glm::vec4 color_diffuse;
+	glm::vec4 color_ambient;
 	float color_specular;
 
 	float mass;

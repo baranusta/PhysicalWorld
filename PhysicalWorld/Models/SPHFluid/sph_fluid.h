@@ -27,13 +27,13 @@ private:
 	physics_engine::SPHFluid* m_physics_ssbo;
 	
 	//values
-	std::vector<glm::vec3> m_vec_positions;
-	std::vector<glm::vec3> m_vec_velocity;
-	std::vector<glm::vec3> m_vec_acceleration;
-	std::vector<glm::vec3> m_vec_force;
+	std::vector<glm::vec4> m_vec_positions;
+	std::vector<glm::vec4> m_vec_velocity;
+	std::vector<glm::vec4> m_vec_acceleration;
+	std::vector<glm::vec4> m_vec_force;
 	
-	std::vector<glm::vec3> m_vec_color_diffuse;
-	std::vector<glm::vec3> m_vec_color_ambient;
+	std::vector<glm::vec4> m_vec_color_diffuse;
+	std::vector<glm::vec4> m_vec_color_ambient;
 	std::vector<float> m_vec_color_specular;
 
 	std::vector<float> m_vec_mass;

@@ -19,6 +19,7 @@ namespace physics_engine
 			SSBO_TYPES_SIZE
 		};
 
+		unsigned int size;
 		GLuint ssbo[SSBO_TYPES_SIZE];
 	};
 }

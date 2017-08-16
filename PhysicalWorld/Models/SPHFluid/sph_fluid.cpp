@@ -37,6 +37,7 @@ void SPHFluid::updateSSBO(GLuint ssbo, std::vector<T> data)
 
 void SPHFluid::updateSSBOs()
 {	
+	m_physics_ssbo->size = m_particle_count;
 	updateSSBO(ssbo[POSITIONS],m_vec_positions);
 	updateSSBO(ssbo[VELOCITY], m_vec_velocity);
 	updateSSBO(ssbo[ACCELERATION],m_vec_acceleration);
@@ -89,8 +90,8 @@ void SPHFluid::addParticles(std::vector<Particle> p)
 	{
 		addParticle(particle);
 	}
-	updateSSBOs();
 	m_particle_count += p.size();
+	updateSSBOs();
 }
 
 void SPHFluid::render()

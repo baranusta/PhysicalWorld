@@ -14,6 +14,7 @@ int main()
 		auto f = x.getSPHFluid();
 		f->addParticles({ Particle() });
 		std::cout << f->getParticleCount();
+		physics_engine::PhysicsEngine::getInstance().update();
 	}
 	catch (const char* t)
 	{

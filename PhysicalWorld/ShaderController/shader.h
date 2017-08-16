@@ -15,6 +15,12 @@ public:
 		usedBy(0)
 	{}
 
+	Shader(const Shader& s)
+		:usedBy(s.usedBy), shaderProgram(s.shaderProgram)
+	{
+
+	}
+
 	virtual ~Shader()
 	{
 		glDeleteProgram(shaderProgram);

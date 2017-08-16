@@ -18,6 +18,7 @@ void getDataFromGPU(GLuint buffer, std::vector<T>& data)
 {
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, buffer); // 
 	GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
+
 	memcpy(&data[0], s, sizeof(T) * data.size());
 	glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
@@ -71,11 +72,12 @@ namespace GameEngine
 					for (int i = 0; i < size; i++)
 					{
 						Particle p;
-						p.position = glm::vec3(100 - i, i, 1);
+						p.position = glm::vec4(100 - i, i, 1,0);
+						particles[i] = p;
 					}
 					fluid.addParticles(particles);
 
-					std::vector<glm::vec3> positions(particles.size());
+					std::vector<glm::vec4> positions(particles.size());
 					getDataFromGPU(fluidSSBO.ssbo[fluidSSBO.POSITIONS], positions);
 					for (int i = 0; i < size; i++)
 					{
@@ -95,12 +97,13 @@ namespace GameEngine
 					for (int i = 0; i < size; i++)
 					{
 						Particle p;
-						p.position = glm::vec3(100 - i, i, 1);
+						p.position = glm::vec4(100 - i, i, 1, 1);
+						particles[i] = p;
 					}
 					fluid.addParticles(particles);
 					fluid.addParticles(particles);
 
-					std::vector<glm::vec3> positions(particles.size() * 2);
+					std::vector<glm::vec4> positions(particles.size() * 2);
 					getDataFromGPU(fluidSSBO.ssbo[fluidSSBO.POSITIONS], positions);
 					for (int i = 0; i < size * 2; i++)
 					{
@@ -113,26 +116,28 @@ namespace GameEngine
 
 				TEST_METHOD(test_ssbo_positions_content_after_update)
 				{
-					physics_engine::SPHFluid fluidSSBO;
-					SPHFluid fluid(&fluidSSBO);
+					physics_engine::SPHFluid* fluidSSBO = physics_engine::PhysicsEngine::getInstance().getFluid();
+					SPHFluid fluid(fluidSSBO);
 					int size = 100;
 					std::vector<Particle> particles(size);
 					for (int i = 0; i < size; i++)
 					{
 						Particle p;
-						p.position = glm::vec3(100 - i, i, 1);
+						p.position = glm::vec4(100 - i, i, 1,1);
+						particles[i] = p;
 					}
 					fluid.addParticles(particles);
 
 					physics_engine::PhysicsEngine::getInstance().update();
+					glMemoryBarrier(GL_ALL_BARRIER_BITS);
 
-					std::vector<glm::vec3> positions(particles.size());
-					getDataFromGPU(fluidSSBO.ssbo[fluidSSBO.POSITIONS], positions);
+					std::vector<glm::vec4> forces(particles.size());
+					getDataFromGPU(fluidSSBO->ssbo[fluidSSBO->FORCE], forces);
 					for (int i = 0; i < size; i++)
 					{
-						Assert::AreEqual(particles[i%size].position.x, positions[i].x);
-						Assert::AreEqual(particles[i%size].position.y, positions[i].y);
-						Assert::AreEqual(particles[i%size].position.z, positions[i].z);
+						Assert::AreEqual(particles[i%size].position.x, forces[i].x);
+						Assert::AreEqual(particles[i%size].position.y, forces[i].y);
+						Assert::AreEqual(particles[i%size].position.z, forces[i].z);
 					}
 				}
 
