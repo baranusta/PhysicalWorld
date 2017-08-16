@@ -3,12 +3,12 @@
 #include "vertex_array_object.h"
 
 
-#define RADIUS			3
-#define C_SPECULAR		4
-#define C_AMBIENT		5
-#define C_DIFFUSE		6
+#define BUF_RADIUS			3
+#define BUF_C_SPECULAR		4
+#define BUF_C_AMBIENT		5
+#define BUF_C_DIFFUSE		6
 #ifdef _DEBUG
-	#define MASS		7
-	#define FORCE		8
-	#define VISCOSITY	9
+	#define BUF_MASS		7
+	#define BUF_FORCE		8
+	#define BUF_VISCOSITY	9
 #endif

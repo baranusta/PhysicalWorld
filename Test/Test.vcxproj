@@ -151,6 +151,9 @@
     <ClCompile Include="..\PhysicalWorld\Engine.cpp" />
     <ClCompile Include="..\PhysicalWorld\Models\SPHFluid\sph_fluid.cpp" />
     <ClCompile Include="..\PhysicalWorld\Physics\physics_engine.cpp" />
+    <ClCompile Include="..\PhysicalWorld\Render\Models\VAOs\vertex_array_object.cpp" />
+    <ClCompile Include="..\PhysicalWorld\Render\Renderers\fluid_renderers.cpp" />
+    <ClCompile Include="..\PhysicalWorld\Render\render_engine.cpp" />
     <ClCompile Include="..\PhysicalWorld\ShaderController\shader_controller.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

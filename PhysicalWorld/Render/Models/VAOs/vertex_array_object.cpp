@@ -4,30 +4,11 @@
 
 render_engine::VertexArrayObject::VertexArrayObject()
 {
-	isElmArrayUsed = false;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
 	glGenBuffers(1, &element_array_handle);
 	glBindVertexArray(vao);
-}
-
-template<class T>
-inline void VertexArrayObject::setData(int bufferType, std::vector<T> data)
-{
-	glBindVertexArray(vao);
-	GLuint buffer = buffers.find(bufferType);
-	if (buffer != buffers.end())
-	{
-		glGenBuffers(1, buffer);
-		buffers[bufferType] = buffer;
-	}
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(T) * data.size(), &data[0], GL_STATIC_DRAW);
-	glEnableVertexAttribArray(bufferType);
-	glVertexAttribPointer(bufferType, 3, GL_FLOAT, GL_FALSE, 0, 0);
-
-	glBindVertexArray(0);
 }
 
 render_engine::VertexArrayObject::~VertexArrayObject()
@@ -49,6 +30,7 @@ void render_engine::VertexArrayObject::setVertexCount(int vertexCount)
 {
 	m_vertexCount = vertexCount;
 }
+
 
 void render_engine::VertexArrayObject::setElementArray(std::vector<int> indices)
 {

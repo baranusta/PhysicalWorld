@@ -23,6 +23,6 @@ void main(void)
 	uint id = gl_WorkGroupID.x * gl_WorkGroupSize.x + gl_LocalInvocationID.x;
 	if(id < size)
 	{
-		force[id] = position[id]; 
+		position[id].x += 0.00001f; 
 	}
 }

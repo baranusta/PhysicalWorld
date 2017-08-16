@@ -8,7 +8,7 @@
 
 namespace render_engine
 {
-	class FluidRenderer: Renderer
+	class FluidRenderer: public Renderer
 	{
 	private:
 		VertexArrayObject m_vao;
@@ -16,10 +16,11 @@ namespace render_engine
 		RenderShaderController m_shader;
 
 	public:
-		FluidRenderer(std::string vShader = "Render\\common.vs", 
-						std::string fShader = "Render\\Renderers\\default_fluid.fs");
+		FluidRenderer();
+		FluidRenderer(std::string vShader, std::string fShader);
 
-		void setVAO(VertexArrayObject);
+		VertexArrayObject* getVAO();
+		void setParticleCount(int count);
 		void draw();
 	};
 }

@@ -41,6 +41,15 @@
     <ClCompile Include="..\PhysicalWorld\ShaderController\shader_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\PhysicalWorld\Render\Renderers\fluid_renderers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PhysicalWorld\Render\render_engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\PhysicalWorld\Render\Models\VAOs\vertex_array_object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

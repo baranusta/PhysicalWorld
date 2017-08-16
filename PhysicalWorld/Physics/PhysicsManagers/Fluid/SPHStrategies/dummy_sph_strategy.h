@@ -22,7 +22,16 @@ namespace physics_engine
 		}
 
 		void update(SPHFluid fluid) {
+
+			GLuint err;
+			while ((err = glGetError()) != GL_NO_ERROR) {
+				std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
+			}
+
 			glUseProgram(m_shader.getProgId());
+			while ((err = glGetError()) != GL_NO_ERROR) {
+				std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
+			}
 			//data
 			glUniform1ui(size_index, fluid.size);
 			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, fluid.ssbo[fluid.POSITIONS]);
@@ -33,8 +42,11 @@ namespace physics_engine
 			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 5, fluid.ssbo[fluid.VISCOSITY]);
 			glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 6, fluid.ssbo[fluid.MASS]);
 
+			while ((err = glGetError()) != GL_NO_ERROR) {
+				std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
+			}
 			m_shader.dispatch((fluid.size + 7)/8,1,1);
-			glMemoryBarrier(GL_ALL_BARRIER_BITS);
+			glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
 		}
 	};
 }

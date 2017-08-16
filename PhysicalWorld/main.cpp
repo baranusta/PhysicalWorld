@@ -10,11 +10,15 @@ int main()
 
 		Engine x;
 		x.addSPHFluid();
-
 		auto f = x.getSPHFluid();
-		f->addParticles({ Particle() });
-		std::cout << f->getParticleCount();
-		physics_engine::PhysicsEngine::getInstance().update();
+		Particle p = Particle();
+		p.position = glm::vec4(0., 0., 0., 1.);
+		Particle c = Particle();
+		c.position = glm::vec4(0., 0.7, 0., 1.);
+		f->addParticles({ p,c });
+		x.startGame([](void){
+			
+		});
 	}
 	catch (const char* t)
 	{

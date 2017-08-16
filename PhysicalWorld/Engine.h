@@ -12,7 +12,7 @@ private:
 	int m_height;
 	int m_width;
 
-	int m_contextHandle;
+	GLFWwindow* window;
 
 	//Components
 	SPHFluid* m_sphfluid;
@@ -25,6 +25,8 @@ public:
 
 	void addSPHFluid();
 	void removeSPHFluid();
+
+	void startGame(std::function<void(void)> gameloop);
 
 
 };

@@ -1,19 +1,13 @@
 #include "sph_fluid.h"
 
+
 SPHFluid::SPHFluid(physics_engine::SPHFluid* sphFluid)
 	:m_physics_ssbo(sphFluid)
 {
 	//image allocation
 	glGenBuffers(SSBO_TYPES_SIZE, ssbo);
 	setFluidSSBOs();
-
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-
-	//glBindVertexArray(vao);
-	//glBindBuffer(GL_ARRAY_BUFFER, m_glPositionBuffer[0]);
-	//glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	//glEnableVertexAttribArray(0);
+	setRenderer();
 }
 
 SPHFluid::~SPHFluid()
@@ -32,18 +26,39 @@ void SPHFluid::setFluidSSBOs()
 	m_physics_ssbo->ssbo[m_physics_ssbo->VISCOSITY] = ssbo[VISCOSITY];
 }
 
+void SPHFluid::setRenderer()
+{
+	render_engine::FluidRenderer* renderer = new render_engine::FluidRenderer();
+	m_rendererId = render_engine::RenderEngine::getInstance().addRenderer(renderer);
+
+	render_engine::VertexArrayObject* vao = renderer->getVAO();
+	vao->setBuffer<glm::vec4>(BUF_POSITION, ssbo[POSITIONS]);
+
+	vao->setBuffer<float>(BUF_RADIUS, ssbo[RADIUS]);
+	vao->setBuffer<float>(BUF_C_SPECULAR, ssbo[COLOR_SPECULAR]);
+	vao->setBuffer<glm::vec4>(BUF_C_AMBIENT, ssbo[COLOR_AMBIENT]);
+	vao->setBuffer<glm::vec4>(BUF_C_DIFFUSE, ssbo[COLOR_DIFFUSE]);
+
+#ifdef _DEBUG
+	vao->setBuffer<float>(BUF_MASS, ssbo[MASS]);
+	vao->setBuffer<float>(BUF_FORCE, ssbo[FORCE]);
+	vao->setBuffer<float>(BUF_VISCOSITY, ssbo[VISCOSITY]);
+#endif
+	vao->setVertexCount(m_particle_count);
+}
+
 template<class T>
 void SPHFluid::updateSSBO(GLuint ssbo, std::vector<T> data)
 {
 	void* dataIndex = data.size() > 0 ? &data[0] : NULL;
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, ssbo);
 	glBufferData(GL_SHADER_STORAGE_BUFFER, data.size() *
-		sizeof(T), dataIndex, GL_DYNAMIC_DRAW);
+		sizeof(T), dataIndex, GL_STATIC_DRAW);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 void SPHFluid::updateSSBOs()
-{	
+{
 	m_physics_ssbo->size = m_particle_count;
 	updateSSBO(ssbo[POSITIONS],m_vec_positions);
 	updateSSBO(ssbo[VELOCITY], m_vec_velocity);
@@ -99,9 +114,7 @@ void SPHFluid::addParticles(std::vector<Particle> p)
 	}
 	m_particle_count += p.size();
 	updateSSBOs();
-}
-
-void SPHFluid::render()
-{
-	//get particle start
+	if (render_engine::FluidRenderer* child = dynamic_cast<render_engine::FluidRenderer*>
+		(render_engine::RenderEngine::getInstance().getRenderer(m_rendererId)))
+		child->setParticleCount(m_particle_count);
 }

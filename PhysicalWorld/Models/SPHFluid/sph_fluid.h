@@ -2,6 +2,8 @@
 
 #include "..\Particle\particle.h"
 #include "..\..\Physics\physics_engine.h"
+#include "..\..\Render\render_engine.h"
+#include "..\..\Render\Renderers\fluid_renderer.h"
 
 
 
@@ -22,6 +24,9 @@ private:
 		VISCOSITY,
 		SSBO_TYPES_SIZE
 	};
+
+	//item ID's
+	int m_rendererId;
 
 	GLuint ssbo[SSBO_TYPES_SIZE];
 	physics_engine::SPHFluid* m_physics_ssbo;
@@ -47,6 +52,7 @@ private:
 	void updateSSBO(GLuint ssbo, std::vector<T> data);
 	void updateSSBOs();
 	void setFluidSSBOs();
+	void setRenderer();
 	
 	void resizeVectors(int more_size);
 	void addParticle(Particle particle);
@@ -60,5 +66,4 @@ public:
 	int getParticleCount();
 
 	void addParticles(std::vector<Particle>);
-	void render();
 };

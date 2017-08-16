@@ -52,6 +52,15 @@
     <Filter Include="Source Files\Rendering\Models">
       <UniqueIdentifier>{e2e2ac27-13b9-43da-bd74-d8570e04be4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Rendering\Renderers">
+      <UniqueIdentifier>{23481ac0-b6c2-419a-b935-705de365d72d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Models\VAO%27s">
+      <UniqueIdentifier>{0b81271b-f5fb-4893-862d-1a4328e0e766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering\Renderers\FluidRenderer">
+      <UniqueIdentifier>{5f2311b7-c3df-44d4-aa84-eba7c1f36171}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,17 +84,17 @@
     <ClCompile Include="ShaderController\shader_controller.cpp">
       <Filter>Source Files\ShaderControllers</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\renderable_object.cpp">
-      <Filter>Source Files\Rendering\Models</Filter>
-    </ClCompile>
     <ClCompile Include="Render\render_engine.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Render\Models\renderable.cpp">
       <Filter>Source Files\Rendering\Models</Filter>
     </ClCompile>
-    <ClCompile Include="Render\Models\fluid.cpp">
-      <Filter>Source Files\Rendering\Models</Filter>
+    <ClCompile Include="Render\Models\VAOs\vertex_array_object.cpp">
+      <Filter>Source Files\Rendering\Models\VAO%27s</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\Renderers\fluid_renderers.cpp">
+      <Filter>Source Files\Rendering\Renderers\FluidRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,23 +137,35 @@
     <ClInclude Include="ShaderController\shader.h">
       <Filter>Source Files\ShaderControllers</Filter>
     </ClInclude>
-    <ClInclude Include="Rendering\renderable_object.h">
-      <Filter>Source Files\Rendering\Models</Filter>
-    </ClInclude>
     <ClInclude Include="Render\render_engine.h">
       <Filter>Source Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Render\Models\renderable.h">
       <Filter>Source Files\Rendering\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Render\Models\fluid.h">
-      <Filter>Source Files\Rendering\Models</Filter>
+    <ClInclude Include="Render\Models\VAOs\vertex_array_object.h">
+      <Filter>Source Files\Rendering\Models\VAO%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Models\VAOs\fluid_vao.h">
+      <Filter>Source Files\Rendering\Models\VAO%27s</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Renderers\fluid_renderer.h">
+      <Filter>Source Files\Rendering\Renderers\FluidRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Renderers\renderer.h">
+      <Filter>Source Files\Rendering\Renderers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Physics\PhysicsManagers\Fluid\SPHStrategies\dummy_sph_compute.glsl">
       <Filter>Source Files\Physics\Managers\Fluid\SPHStrategies</Filter>
+    </None>
+    <None Include="Render\common.vs">
+      <Filter>Source Files\Rendering\Renderers</Filter>
+    </None>
+    <None Include="Render\Renderers\default_fluid.fs">
+      <Filter>Source Files\Rendering\Renderers\FluidRenderer</Filter>
     </None>
   </ItemGroup>
 </Project>
