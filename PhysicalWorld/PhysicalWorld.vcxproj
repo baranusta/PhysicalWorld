@@ -101,6 +101,9 @@
     <ClCompile Include="Models\SPHFluid\sph_fluid.cpp" />
     <ClCompile Include="Physics\physics_engine.cpp" />
     <ClCompile Include="Rendering\renderable_object.cpp" />
+    <ClCompile Include="Render\Models\fluid.cpp" />
+    <ClCompile Include="Render\Models\renderable.cpp" />
+    <ClCompile Include="Render\render_engine.cpp" />
     <ClCompile Include="ShaderController\shader_controller.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
@@ -114,6 +117,9 @@
     <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\sph_strategies.h" />
     <ClInclude Include="Physics\physics_engine.h" />
     <ClInclude Include="Rendering\renderable_object.h" />
+    <ClInclude Include="Render\Models\fluid.h" />
+    <ClInclude Include="Render\Models\renderable.h" />
+    <ClInclude Include="Render\render_engine.h" />
     <ClInclude Include="ShaderController\compute_shader_controller.h" />
     <ClInclude Include="ShaderController\render_shader_controller.h" />
     <ClInclude Include="ShaderController\shader.h" />
