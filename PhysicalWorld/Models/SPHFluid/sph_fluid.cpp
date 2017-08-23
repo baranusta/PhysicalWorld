@@ -13,6 +13,7 @@ SPHFluid::SPHFluid(physics_engine::SPHFluid* sphFluid)
 SPHFluid::~SPHFluid()
 {
 	glDeleteBuffers(SSBO_TYPES_SIZE, ssbo);
+	render_engine::RenderEngine::getInstance().removeRenderer(m_rendererId);
 }
 
 void SPHFluid::setFluidSSBOs()
