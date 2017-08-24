@@ -37,14 +37,8 @@
     <Filter Include="Source Files\Physics\Managers\Integrate">
       <UniqueIdentifier>{6c35fb1c-c1ef-45e8-a4fa-eb0c14bb57f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Physics\Managers\Fluid">
-      <UniqueIdentifier>{eecb5c58-3fdc-451b-86b0-d7f1afef935f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Physics\Models">
       <UniqueIdentifier>{a84ae5da-c17e-4193-86e7-4dfb91cef049}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Physics\Managers\Fluid\SPHStrategies">
-      <UniqueIdentifier>{318a7789-ed35-4fc3-a147-a4e4652a0b13}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ShaderControllers">
       <UniqueIdentifier>{cf4aa4de-a2c2-4e48-abe5-612d3eaaa2b3}</UniqueIdentifier>
@@ -60,6 +54,12 @@
     </Filter>
     <Filter Include="Source Files\Rendering\Renderers\FluidRenderer">
       <UniqueIdentifier>{5f2311b7-c3df-44d4-aa84-eba7c1f36171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Managers\Particles">
+      <UniqueIdentifier>{9a64d9e1-5678-4a50-b4fb-bbd555954db8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Managers\Particles\SPHDefault">
+      <UniqueIdentifier>{a4c1d24d-edfc-466c-814d-b5633e34e284}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +96,18 @@
     <ClCompile Include="Render\Renderers\fluid_renderers.cpp">
       <Filter>Source Files\Rendering\Renderers\FluidRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\PhysicsManagers\Integrate\integrator.cpp">
+      <Filter>Source Files\Physics\Managers\Integrate</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsManagers\Particles\particle_manager.cpp">
+      <Filter>Source Files\Physics\Managers\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.cpp">
+      <Filter>Source Files\Physics\Managers\Particles\SPHDefault</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Models\object.cpp">
+      <Filter>Source Files\Physics\Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -111,15 +123,6 @@
       <Filter>Source Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Physics\Models\sph_fluid.h">
-      <Filter>Source Files\Physics\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\sph_strategies.h">
-      <Filter>Source Files\Physics\Managers\Fluid\SPHStrategies</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\PhysicsManagers\Fluid\SPHStrategies\dummy_sph_strategy.h">
-      <Filter>Source Files\Physics\Managers\Fluid\SPHStrategies</Filter>
-    </ClInclude>
-    <ClInclude Include="Physics\Models\New folder\solid_object.h">
       <Filter>Source Files\Physics\Models</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
@@ -155,17 +158,44 @@
     <ClInclude Include="Render\Renderers\renderer.h">
       <Filter>Source Files\Rendering\Renderers</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Integrate\integrator.h">
+      <Filter>Source Files\Physics\Managers\Integrate</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Models\integrable.h">
+      <Filter>Source Files\Physics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Models\integrable_rotating.h">
+      <Filter>Source Files\Physics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Models\particle.h">
+      <Filter>Source Files\Physics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Models\object.h">
+      <Filter>Source Files\Physics\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Particles\particle_manager.h">
+      <Filter>Source Files\Physics\Managers\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system.h">
+      <Filter>Source Files\Physics\Managers\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.h">
+      <Filter>Source Files\Physics\Managers\Particles\SPHDefault</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Physics\PhysicsManagers\Fluid\SPHStrategies\dummy_sph_compute.glsl">
-      <Filter>Source Files\Physics\Managers\Fluid\SPHStrategies</Filter>
-    </None>
     <None Include="Render\common.vs">
       <Filter>Source Files\Rendering\Renderers</Filter>
     </None>
     <None Include="Render\Renderers\default_fluid.fs">
       <Filter>Source Files\Rendering\Renderers\FluidRenderer</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.comp">
+      <Filter>Source Files\Physics\Managers\Particles\SPHDefault</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Integrate\euler_integrator.comp">
+      <Filter>Source Files\Physics\Managers\Integrate</Filter>
     </None>
   </ItemGroup>
 </Project>

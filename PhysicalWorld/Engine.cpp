@@ -55,7 +55,7 @@ void Engine::startGame(std::function<void(void)> gameloop)
 			glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			gameloop();
-			physics_engine::PhysicsEngine::getInstance().update();
+			physics_engine::PhysicsEngine::getInstance().update(m_timeStep);
 			render_engine::RenderEngine::getInstance().renderScene();
 			glfwSwapBuffers(window);
 		}

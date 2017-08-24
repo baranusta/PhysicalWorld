@@ -165,7 +165,8 @@
     </ClCompile>
     <ClCompile Include="Test\TestEngine.cpp" />
     <ClCompile Include="Test\helper.cpp" />
-    <ClCompile Include="Test\TestFluid.cpp" />
+    <ClCompile Include="Test\TestModels.cpp" />
+    <ClCompile Include="Test\TestPhysics.cpp" />
     <ClCompile Include="Test\TestShaders.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,19 @@
 #include "sph_fluid.h"
 
 
-SPHFluid::SPHFluid(physics_engine::SPHFluid* sphFluid)
-	:m_physics_ssbo(sphFluid)
+SPHFluid::SPHFluid(physics_engine::SPHFluid* particles)
 {
+	if (particles == NULL)
+	{
+		m_physics_ssbo = new physics_engine::SPHFluid();
+	}
+	else
+	{
+		m_physics_ssbo = particles;
+	}
+	m_physicsId = physics_engine::PhysicsEngine::getInstance()
+		.addFluid(physics_engine::ParticleSystemTypes::SPH_DEFAULT, m_physics_ssbo);
+
 	//image allocation
 	glGenBuffers(SSBO_TYPES_SIZE, ssbo);
 	setFluidSSBOs();
@@ -13,18 +23,21 @@ SPHFluid::SPHFluid(physics_engine::SPHFluid* sphFluid)
 SPHFluid::~SPHFluid()
 {
 	glDeleteBuffers(SSBO_TYPES_SIZE, ssbo);
+
+	delete m_physics_ssbo;
 	render_engine::RenderEngine::getInstance().removeRenderer(m_rendererId);
+	physics_engine::PhysicsEngine::getInstance().remove(m_physicsId);
 }
 
 void SPHFluid::setFluidSSBOs()
 {
-	m_physics_ssbo->ssbo[m_physics_ssbo->POSITIONS]= ssbo[POSITIONS];
-	m_physics_ssbo->ssbo[m_physics_ssbo->VELOCITY] = ssbo[VELOCITY];
-	m_physics_ssbo->ssbo[m_physics_ssbo->ACCELERATION] = ssbo[ACCELERATION];
-	m_physics_ssbo->ssbo[m_physics_ssbo->FORCE] = ssbo[FORCE];
-	m_physics_ssbo->ssbo[m_physics_ssbo->RADIUS] = ssbo[RADIUS];
-	m_physics_ssbo->ssbo[m_physics_ssbo->MASS] = ssbo[MASS];
-	m_physics_ssbo->ssbo[m_physics_ssbo->VISCOSITY] = ssbo[VISCOSITY];
+	m_physics_ssbo->setPositions(ssbo[POSITIONS]);
+	m_physics_ssbo->setVelocities(ssbo[VELOCITY]);
+	m_physics_ssbo->setAccelerations(ssbo[ACCELERATION]);
+	m_physics_ssbo->setForces(ssbo[FORCE]);
+	m_physics_ssbo->setRadius(ssbo[RADIUS]);
+	m_physics_ssbo->setMass(ssbo[MASS]);
+	m_physics_ssbo->setViscosities(ssbo[VISCOSITY]);
 }
 
 void SPHFluid::setRenderer()
@@ -60,7 +73,7 @@ void SPHFluid::updateSSBO(GLuint ssbo, std::vector<T> data)
 
 void SPHFluid::updateSSBOs()
 {
-	m_physics_ssbo->size = m_particle_count;
+	m_physics_ssbo->setSize(m_particle_count);
 	updateSSBO(ssbo[POSITIONS],m_vec_positions);
 	updateSSBO(ssbo[VELOCITY], m_vec_velocity);
 	updateSSBO(ssbo[ACCELERATION],m_vec_acceleration);

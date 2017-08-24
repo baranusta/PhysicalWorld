@@ -27,6 +27,7 @@ private:
 
 	//item ID's
 	int m_rendererId;
+	int m_physicsId;
 
 	GLuint ssbo[SSBO_TYPES_SIZE];
 	physics_engine::SPHFluid* m_physics_ssbo;
@@ -59,7 +60,7 @@ private:
 
 
 public:
-	SPHFluid(physics_engine::SPHFluid* a = physics_engine::PhysicsEngine::getInstance().getFluid());
+	SPHFluid(physics_engine::SPHFluid* a = NULL);
 	~SPHFluid();
 	
 	//getter

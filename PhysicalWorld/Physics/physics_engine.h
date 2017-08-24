@@ -1,6 +1,10 @@
 #pragma once
 
-#include "PhysicsManagers\Fluid\SPHStrategies\dummy_sph_strategy.h"
+#include "PhysicsManagers\Particles\particle_manager.h"
+#include "PhysicsManagers\Integrate\integrator.h"
+
+#define PHYSICS_UNSET_INDEX -1
+
 
 namespace physics_engine
 {
@@ -8,10 +12,26 @@ namespace physics_engine
 	{
 	private:
 
-		SPHFluid m_fluid;
-		SPHStrategies* m_sphStrategy;
-		
+		struct PhysicalObject 
+		{
+			int integratorNonRotatingId = PHYSICS_UNSET_INDEX;
+			int integratorRotatingId = PHYSICS_UNSET_INDEX;
+			
+			int particleSystemType = PHYSICS_UNSET_INDEX;
+			int particleSystemId = PHYSICS_UNSET_INDEX;
+
+		};
+		//These are for cleanups. If any of the object is removed,
+		//it will be removed from all the corresponding handlers.
+		std::unordered_map<int, PhysicalObject> registeredObjects;
+
+		ParticleManager m_pManager;
+		Integrator integrator;
+
+		int objectCount = 0;
 		PhysicsEngine();
+
+		void unregister(PhysicalObject object);
 
 	public:
 		PhysicsEngine(PhysicsEngine&) = delete;
@@ -24,9 +44,10 @@ namespace physics_engine
 		}
 
 	public:
-		SPHFluid* getFluid();
+		int addFluid(ParticleSystemTypes type, Particle* p);
+		void remove(int id);
 
-		void update();
+		void update(float timeStep);
 		
 	};
 }

@@ -1,25 +1,24 @@
 #pragma once
 
 #include "..\..\stdafx.h"
+#include "particle.h"
 
 namespace physics_engine
 {
-	class SPHFluid
+	class SPHFluid : public Particle
 	{
+	private:
+		GLuint m_viscosity;
 	public:
 
-		enum SSBO_TYPES {
-			POSITIONS,
-			VELOCITY,
-			ACCELERATION,
-			FORCE,
-			MASS,
-			RADIUS,
-			VISCOSITY,
-			SSBO_TYPES_SIZE
-		};
+		void setViscosities(GLuint viscosity)
+		{
+			m_viscosity = viscosity;
+		}
 
-		unsigned int size;
-		GLuint ssbo[SSBO_TYPES_SIZE];
+		GLuint getViscosities()
+		{
+			return 0;
+		}
 	};
 }

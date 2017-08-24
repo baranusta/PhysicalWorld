@@ -3,18 +3,46 @@
 
 physics_engine::PhysicsEngine::PhysicsEngine()
 {
-	m_sphStrategy = new DummySphStrategy();
 }
 
-physics_engine::SPHFluid * physics_engine::PhysicsEngine::getFluid()
+void physics_engine::PhysicsEngine::unregister(PhysicalObject object)
 {
-	return &m_fluid;
+	if (object.integratorNonRotatingId != PHYSICS_UNSET_INDEX)
+	{
+		integrator.removeIntegrable(Integrator::IntegrableType::NON_ROTATING, object.integratorNonRotatingId);
+	}
+	if (object.integratorRotatingId != PHYSICS_UNSET_INDEX)
+	{
+
+	}
+	if (object.particleSystemId != PHYSICS_UNSET_INDEX)
+	{
+		m_pManager.removeParticles(static_cast<ParticleSystemTypes>(object.particleSystemType), object.particleSystemId);
+	}
 }
 
-void physics_engine::PhysicsEngine::update()
+int physics_engine::PhysicsEngine::addFluid(ParticleSystemTypes type, Particle * p)
+{
+	PhysicalObject o;
+	o.particleSystemId = m_pManager.addParticles(type, p);
+	o.particleSystemType = type;
+	o.integratorNonRotatingId = integrator.addIntegrable(Integrator::IntegrableType::NON_ROTATING, p);
+	registeredObjects[objectCount++] = o;
+	return objectCount;
+}
+
+void physics_engine::PhysicsEngine::remove(int id)
+{
+	unregister(registeredObjects[id]);
+	registeredObjects.erase(id);
+}
+
+void physics_engine::PhysicsEngine::update(float timeStep)
 {
 	//collision detection between objects
 	//collision detection between objects and particles
-	//update
-	m_sphStrategy->update(m_fluid);
+	m_pManager.computeForces();
+	//integrate new values
+	integrator.integrate(timeStep);
+	glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
 }

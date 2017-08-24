@@ -56,13 +56,16 @@
     <ClCompile Include="Test\helper.cpp">
       <Filter>Source Files\Test</Filter>
     </ClCompile>
-    <ClCompile Include="Test\TestFluid.cpp">
-      <Filter>Source Files\Test</Filter>
-    </ClCompile>
     <ClCompile Include="Test\TestEngine.cpp">
       <Filter>Source Files\Test</Filter>
     </ClCompile>
     <ClCompile Include="Test\TestShaders.cpp">
+      <Filter>Source Files\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\TestModels.cpp">
+      <Filter>Source Files\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\TestPhysics.cpp">
       <Filter>Source Files\Test</Filter>
     </ClCompile>
   </ItemGroup>
