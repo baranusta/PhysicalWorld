@@ -16,9 +16,11 @@ private:
 	static std::string currentlyUsedName;
 
 
+
 protected:
 
 	std::string m_name;
+
 
 	std::string readFile(std::string fileName)
 	{
@@ -37,9 +39,22 @@ protected:
 		return buffer.str();
 	}
 
-	GLuint compile(GLuint type, std::string fileName)
+	void appendMacros(std::string& source, const std::unordered_map<std::string, std::string>& macros)
+	{
+		std::string macrosText =  "";
+		for (auto item : macros)
+		{
+			macrosText += "#define " + item.first + " " + item.second + "\n";
+		}
+		source = source.substr(source.find("#version"), source.find("\n") + 1) +
+				 macrosText + 
+				 source.substr(source.find("\n"), source.length());
+	}
+
+	GLuint compile(GLuint type, std::string fileName, const std::unordered_map<std::string, std::string>& macros = {})
 	{
 		std::string source = readFile(fileName);
+		appendMacros(source, macros);
 		const char * c_source = source.c_str();
 		GLuint shader = glCreateShader(type);
 		glShaderSource(shader, 1, &c_source, nullptr);
@@ -58,6 +73,7 @@ protected:
 	}
 
 	virtual void attachShaders(GLuint) = 0;
+	virtual void recompile(GLuint) = 0;
 
 	void createShader(std::string name)
 	{
@@ -92,9 +108,6 @@ public:
 	{
 
 	}
-	
-
-	GLuint getProgId() { return shaders[m_name]->shaderProgram; }
 
 	~ShaderController() 
 	{
@@ -102,6 +115,7 @@ public:
 		{
 			if (shaders[m_name]->usedBy == 1)
 			{
+				glDeleteProgram(shaders[m_name]->shaderProgram);
 				delete shaders[m_name];
 				shaders.erase(m_name);
 			}
@@ -109,4 +123,11 @@ public:
 				shaders[m_name]->usedBy--;
 		}
 	}
+
+	GLuint getProgId() 
+	{ 
+		recompile(shaders[m_name]->shaderProgram);
+		return shaders[m_name]->shaderProgram; 
+	}
+
 };

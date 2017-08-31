@@ -36,6 +36,15 @@ public:
 
 	}
 
+	void recompile(GLuint prog)
+	{
+	}
+
+	void setMacroVS()
+	{}
+	void setMacroFS() 
+	{}
+
 	void operator()() 
 	{ 
 		glUseProgram(getProgId());

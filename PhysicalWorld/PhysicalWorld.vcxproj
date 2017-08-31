@@ -140,6 +140,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Physics\PhysicsManagers\Integrate\forward_euler_integrator.comp" />
+    <None Include="Physics\PhysicsManagers\Integrate\leapfrog_integrator.comp" />
     <None Include="Physics\PhysicsManagers\Integrate\semi_implicit_euler_integrator.comp" />
     <None Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.comp" />
     <None Include="Render\common.vs" />

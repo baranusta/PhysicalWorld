@@ -37,6 +37,11 @@ void physics_engine::PhysicsEngine::remove(int id)
 	registeredObjects.erase(id);
 }
 
+void physics_engine::PhysicsEngine::setIntegrator(Integrator::IntegratorTypes integratorType, float timeStep)
+{
+	integrator.setIntegrator(integratorType, timeStep);
+}
+
 void physics_engine::PhysicsEngine::update(float timeStep)
 {
 	//collision detection between objects

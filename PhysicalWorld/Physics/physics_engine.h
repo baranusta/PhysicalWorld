@@ -47,6 +47,8 @@ namespace physics_engine
 		int addFluid(ParticleSystemTypes type, Particle* p);
 		void remove(int id);
 
+		void setIntegrator(Integrator::IntegratorTypes integratorType, float timeStep);
+
 		void update(float timeStep);
 		
 	};

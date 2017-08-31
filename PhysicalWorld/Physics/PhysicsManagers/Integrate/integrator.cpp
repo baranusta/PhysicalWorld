@@ -2,18 +2,37 @@
 
 
 
-void physics_engine::Integrator::updateShaderController(IntegratorTypes type)
+void physics_engine::Integrator::updateShaderController(IntegratorTypes type, float timeStep)
 {
 	if (m_used_integrator == type || INTEGRATOR_SIZE <= type)
 		return;
-	if(m_used_integrator != INTEGRATOR_SIZE)
+	if (m_used_integrator != INTEGRATOR_SIZE)
+	{
+		_convertDataToNormal(timeStep);
 		delete m_shader;
-	
+
+	}
+
 	m_used_integrator = type;
 	m_shader = new ComputeShaderController(integratorShaderSources[type]);
 
 	m_size_index = glGetUniformLocation(m_shader->getProgId(), "size");
 	m_timeStep = glGetUniformLocation(m_shader->getProgId(), "timeStep");
+	_converDataToRequiredForm(timeStep);
+}
+
+void physics_engine::Integrator::_convertDataToNormal(float timeStep)
+{
+	m_shader->setMacro("LAST_RUN", "");
+	integrate(timeStep);
+	m_shader->unsetMacro("LAST_RUN");
+}
+
+void physics_engine::Integrator::_converDataToRequiredForm(float timeStep)
+{
+	m_shader->setMacro("FIRST_RUN", "");
+	integrate(timeStep);
+	m_shader->unsetMacro("FIRST_RUN");
 }
 
 physics_engine::Integrator::Integrator()
@@ -57,6 +76,11 @@ void physics_engine::Integrator::integrate(float timeStep)
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, integrable->getMass());
 		m_shader->dispatch((integrable->getSize() + 7) / 8, 1, 1);
 	}
+}
+
+void physics_engine::Integrator::setIntegrator(IntegratorTypes integratorType, float timeStep)
+{
+	updateShaderController(integratorType, timeStep);
 }
 
 int physics_engine::Integrator::addIntegrable(IntegrableType type, Object * obj)
