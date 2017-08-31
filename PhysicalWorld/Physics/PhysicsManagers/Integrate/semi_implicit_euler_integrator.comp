@@ -16,8 +16,11 @@ void main(void)
 	uint id = gl_WorkGroupID.x * gl_WorkGroupSize.x + gl_LocalInvocationID.x;
 	if(id < size)
 	{
-		acceleration[id] += force[id] * mass[id];
-		velocity[id] += acceleration[id] * timeStep;
-		position[id] += velocity[id] * timeStep;
+		vec4 currentVelocity = velocity[id];
+		vec4 currentAcceleration = acceleration[id];
+
+		position[id] += currentVelocity * timeStep;
+		velocity[id] = currentVelocity + currentAcceleration * timeStep;
+		acceleration[id] = currentAcceleration + force[id] * mass[id];
 	}
 }

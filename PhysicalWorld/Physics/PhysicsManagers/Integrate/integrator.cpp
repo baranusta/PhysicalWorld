@@ -18,7 +18,7 @@ void physics_engine::Integrator::updateShaderController(IntegratorTypes type)
 
 physics_engine::Integrator::Integrator()
 {
-	updateShaderController(EULER);
+	updateShaderController(FORWARD_EULER);
 }
 
 

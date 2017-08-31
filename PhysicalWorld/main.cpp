@@ -9,7 +9,7 @@ int main()
 	try {
 
 		Engine x;
- 		x.addSPHFluid();
+		x.addSPHFluid();
 		auto f = x.getSPHFluid();
 		Particle p = Particle();
 		p.position = glm::vec4(0., 0., 0., 1.);
@@ -18,13 +18,17 @@ int main()
 		c.mass = 1;
 		c.position = glm::vec4(0., 0.7, 0., 1.);
 		f->addParticles({ p,c });
-		x.startGame([](void){
-			
+		x.startGame([](void) {
+
 		});
 	}
 	catch (const char* t)
 	{
-		std::cout << t;
+		std::cout << t << std::endl;
+	}
+	catch (std::string t)
+	{
+		std::cout << t << std::endl;
 	}
 	return 0;
 }

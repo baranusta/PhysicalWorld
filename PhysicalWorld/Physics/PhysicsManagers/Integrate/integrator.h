@@ -21,8 +21,9 @@ namespace physics_engine
 			list[t] = obj;
 		}
 
-		enum IntegratorTypes { EULER, INTEGRATOR_SIZE };
-		std::string integratorShaderSources[1] {"Physics\\PhysicsManagers\\Integrate\\euler_integrator.comp"};
+		enum IntegratorTypes { FORWARD_EULER, SEMI_IMPLICIT_EULER, INTEGRATOR_SIZE };
+		std::string integratorShaderSources[2] {"Physics\\PhysicsManagers\\Integrate\\forward_euler_integrator.comp",
+												"Physics\\PhysicsManagers\\Integrate\\semi_implicit_euler_integrator.comp" };
 		IntegratorTypes m_used_integrator = INTEGRATOR_SIZE;
 		void updateShaderController(IntegratorTypes type);
 

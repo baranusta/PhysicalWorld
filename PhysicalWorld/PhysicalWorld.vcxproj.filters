@@ -194,7 +194,10 @@
     <None Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.comp">
       <Filter>Source Files\Physics\Managers\Particles\SPHDefault</Filter>
     </None>
-    <None Include="Physics\PhysicsManagers\Integrate\euler_integrator.comp">
+    <None Include="Physics\PhysicsManagers\Integrate\semi_implicit_euler_integrator.comp">
+      <Filter>Source Files\Physics\Managers\Integrate</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Integrate\forward_euler_integrator.comp">
       <Filter>Source Files\Physics\Managers\Integrate</Filter>
     </None>
   </ItemGroup>
