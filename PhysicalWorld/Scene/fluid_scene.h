@@ -14,15 +14,23 @@ public:
 
 	std::vector<Particle> getSPHParticles()
 	{
-		std::vector<Particle> particles(m_sphCount);
-		for (unsigned int i = 0; i < m_sphCount; i++)
+		int x = glm::pow(m_sphCount, 1.f / 3.f);
+		std::vector<Particle> particles(x * x * x);
+		int t = 0;
+		for (unsigned int i = 0; i < x; i++)
 		{
-			Particle p = Particle();
-			p.position = glm::vec4(0.1 * i, 0., 0., 1.);
-			p.mass = 0.1f;
-			p.radius = 10;
+			for (unsigned int j = 0; j < x; j++)
+			{
+				for (unsigned int k = 0; k < x; k++)
+				{
+					Particle p = Particle();
+					p.position = glm::vec4( - 0.5 + 0.1 * k, -0.5 + 0.1 * j, -0.5 + 0.1 * i, 1.);
+					p.mass = 0.1f;
+					p.radius = 10;
 
-			particles[i] = p;
+					particles[t++] = p;
+				}
+			}
 		}
 		return particles;
 	}
