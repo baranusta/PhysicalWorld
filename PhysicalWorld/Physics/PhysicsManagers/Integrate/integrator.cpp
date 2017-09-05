@@ -57,9 +57,8 @@ void physics_engine::Integrator::integrate(float timeStep)
 		glUniform1f(m_timeStep, timeStep);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, integrable->getPositions());
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, integrable->getVelocities());
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, integrable->getAccelerations());
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, integrable->getForces());
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, integrable->getMass());
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, integrable->getForces());
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, integrable->getMass());
 		m_shader->dispatch((integrable->getSize() + 7) / 8, 1, 1);
 	}
 
@@ -71,9 +70,8 @@ void physics_engine::Integrator::integrate(float timeStep)
 		glUniform1f(m_timeStep, timeStep);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, integrable->getPositions());
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, integrable->getAngularVelocities());
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, integrable->getAngularAccelerations());
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, integrable->getTorques());
-		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, integrable->getMass());
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, integrable->getTorques());
+		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, integrable->getMass());
 		m_shader->dispatch((integrable->getSize() + 7) / 8, 1, 1);
 	}
 }

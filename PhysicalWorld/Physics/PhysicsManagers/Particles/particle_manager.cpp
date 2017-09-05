@@ -4,8 +4,8 @@ physics_engine::ParticleSystem * physics_engine::ParticleManager::createParticle
 {
 	switch (type)
 	{
-	case ParticleSystemTypes::SPH_DEFAULT:
-		return new SPHDefault();
+	case ParticleSystemTypes::PBF_MULLER_2003:
+		return new PBF2003();
 		break;
 	}
 	return nullptr;

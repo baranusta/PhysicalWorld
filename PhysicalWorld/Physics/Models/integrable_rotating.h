@@ -8,7 +8,6 @@ namespace physics_engine
 	{
 	private:
 		GLuint m_angularVelocities;
-		GLuint m_angularAccelerations;
 		GLuint m_torques;
 
 	public:
@@ -22,11 +21,6 @@ namespace physics_engine
 			m_angularVelocities = angularVelocities;
 		}
 
-		void setAngularAccelerations(GLuint angularAccelerations)
-		{
-			m_angularAccelerations = angularAccelerations;
-		}
-
 		void setTorques(GLuint torques)
 		{
 			m_torques = torques;
@@ -35,11 +29,6 @@ namespace physics_engine
 		GLuint getAngularVelocities()
 		{
 			return m_angularVelocities;
-		}
-
-		GLuint getAngularAccelerations()
-		{
-			return m_angularAccelerations;
 		}
 
 		GLuint getTorques()

@@ -12,7 +12,7 @@ SPHFluid::SPHFluid(physics_engine::SPHFluid* particles)
 		m_physics_ssbo = particles;
 	}
 	m_physicsId = physics_engine::PhysicsEngine::getInstance()
-		.addFluid(physics_engine::ParticleSystemTypes::SPH_DEFAULT, m_physics_ssbo);
+		.addFluid(physics_engine::ParticleSystemTypes::PBF_MULLER_2003, m_physics_ssbo);
 
 	//image allocation
 	glGenBuffers(SSBO_TYPES_SIZE, ssbo);
@@ -33,8 +33,8 @@ void SPHFluid::setFluidSSBOs()
 {
 	m_physics_ssbo->setPositions(ssbo[POSITIONS]);
 	m_physics_ssbo->setVelocities(ssbo[VELOCITY]);
-	m_physics_ssbo->setAccelerations(ssbo[ACCELERATION]);
 	m_physics_ssbo->setForces(ssbo[FORCE]);
+	m_physics_ssbo->setRestDensities(ssbo[REST_DENSITY]);
 	m_physics_ssbo->setRadius(ssbo[RADIUS]);
 	m_physics_ssbo->setMass(ssbo[MASS]);
 	m_physics_ssbo->setViscosities(ssbo[VISCOSITY]);
@@ -74,24 +74,26 @@ void SPHFluid::updateSSBO(GLuint ssbo, std::vector<T> data)
 void SPHFluid::updateSSBOs()
 {
 	m_physics_ssbo->setSize(m_particle_count);
+
 	updateSSBO(ssbo[POSITIONS],m_vec_positions);
 	updateSSBO(ssbo[VELOCITY], m_vec_velocity);
-	updateSSBO(ssbo[ACCELERATION],m_vec_acceleration);
 	updateSSBO(ssbo[FORCE],m_vec_force);
+	updateSSBO(ssbo[REST_DENSITY], m_vec_rest_density);
 	updateSSBO(ssbo[COLOR_DIFFUSE], m_vec_color_diffuse);
 	updateSSBO(ssbo[COLOR_AMBIENT], m_vec_color_ambient);
 	updateSSBO(ssbo[COLOR_SPECULAR], m_vec_color_specular);
 	updateSSBO(ssbo[MASS], m_vec_mass);
-	updateSSBO(ssbo[VISCOSITY], m_vec_radius);
-	updateSSBO(ssbo[RADIUS], m_vec_viscosity);
+	updateSSBO(ssbo[VISCOSITY], m_vec_viscosity);
+	updateSSBO(ssbo[RADIUS], m_vec_radius);
+	
 }
 
 void SPHFluid::resizeVectors(int more_size)
 {
 	m_vec_positions.reserve(more_size);
 	m_vec_velocity.reserve(more_size);
-	m_vec_acceleration.reserve(more_size);
 	m_vec_force.reserve(more_size);
+	m_vec_rest_density.reserve(more_size);
 	m_vec_color_diffuse.reserve(more_size);
 	m_vec_color_ambient.reserve(more_size);
 	m_vec_color_specular.reserve(more_size);
@@ -104,8 +106,8 @@ void SPHFluid::addParticle(Particle particle)
 {
 	m_vec_positions.push_back(particle.position);
 	m_vec_velocity.push_back(particle.velocity);
-	m_vec_acceleration.push_back(particle.acceleration);
 	m_vec_force.push_back(particle.force);
+	m_vec_rest_density.push_back(particle.rest_density);
 	m_vec_color_diffuse.push_back(particle.color_diffuse);
 	m_vec_color_ambient.push_back(particle.color_ambient);
 	m_vec_color_specular.push_back(particle.color_specular);
@@ -119,7 +121,7 @@ int SPHFluid::getParticleCount()
 	return m_particle_count;
 }
 
-void SPHFluid::addParticles(std::vector<Particle> p)
+void SPHFluid::addParticles(const std::vector<Particle>& p)
 {
 	resizeVectors(p.size());
 	for (Particle particle : p)

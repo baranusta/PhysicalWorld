@@ -27,13 +27,14 @@ public:
 	ComputeShaderController(std::string fileName_C)
 	{
 		this->fileName_C = fileName_C;
+		setMacro("THREAD_COUNT_X", 1);
 		createShader(fileName_C);
 
 	}
 
 	virtual void attachShaders(GLuint prog)
 	{
-		GLuint compute_shader = compile(GL_COMPUTE_SHADER, fileName_C); 
+		GLuint compute_shader = compile(GL_COMPUTE_SHADER, fileName_C, macros); 
 		linkShader(prog, compute_shader);
 	}
 
@@ -59,6 +60,11 @@ public:
 			macros[name] = value;
 			shouldRecompile = true;
 		}
+	}
+
+	void setMacro(std::string name, int value)
+	{
+		setMacro(name, std::to_string(value));
 	}
 
 	void unsetMacro(std::string name)

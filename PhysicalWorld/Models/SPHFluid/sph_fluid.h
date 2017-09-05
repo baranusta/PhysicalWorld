@@ -2,6 +2,7 @@
 
 #include "..\Particle\particle.h"
 #include "..\..\Physics\physics_engine.h"
+#include "..\..\Physics\Models\sph_fluid.h"
 #include "..\..\Render\render_engine.h"
 #include "..\..\Render\Renderers\fluid_renderer.h"
 
@@ -14,8 +15,8 @@ private:
 	enum SSBO_TYPES {
 		POSITIONS,
 		VELOCITY,
-		ACCELERATION,
 		FORCE,
+		REST_DENSITY,
 		COLOR_DIFFUSE,
 		COLOR_AMBIENT,
 		COLOR_SPECULAR,
@@ -35,8 +36,8 @@ private:
 	//values
 	std::vector<glm::vec4> m_vec_positions;
 	std::vector<glm::vec4> m_vec_velocity;
-	std::vector<glm::vec4> m_vec_acceleration;
 	std::vector<glm::vec4> m_vec_force;
+	std::vector<float> m_vec_rest_density;
 	
 	std::vector<glm::vec4> m_vec_color_diffuse;
 	std::vector<glm::vec4> m_vec_color_ambient;
@@ -66,5 +67,5 @@ public:
 	//getter
 	int getParticleCount();
 
-	void addParticles(std::vector<Particle>);
+	void addParticles(const std::vector<Particle>&);
 };

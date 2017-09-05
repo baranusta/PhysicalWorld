@@ -2,7 +2,8 @@
 #include "..\..\Models\particle.h"
 
 
-#include "SPHDefault\sph_default.h"
+#include "particle_system.h"
+#include "SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.h"
 
 #include <unordered_map>
 

@@ -58,8 +58,23 @@
     <Filter Include="Source Files\Physics\Managers\Particles">
       <UniqueIdentifier>{9a64d9e1-5678-4a50-b4fb-bbd555954db8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Physics\Managers\Particles\SPHDefault">
+    <Filter Include="Source Files\Physics\Managers\Particles\SPHSolvers">
+      <UniqueIdentifier>{3c03896b-dc53-48ea-920c-8f360a774ce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Managers\Particles\SPHSolvers\SPHCommonShaders">
+      <UniqueIdentifier>{c3fb05ad-4273-4c4e-bf06-a3a1223a2293}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003">
       <UniqueIdentifier>{a4c1d24d-edfc-466c-814d-b5633e34e284}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{a9e3cda3-1f59-40ae-a79b-91d681adc64d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models\Camera">
+      <UniqueIdentifier>{85ca6554-6182-4659-85e1-c7797109b4dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Scenes">
+      <UniqueIdentifier>{361d5f83-6640-4223-86e2-8ec26ae9b605}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,11 +117,20 @@
     <ClCompile Include="Physics\PhysicsManagers\Particles\particle_manager.cpp">
       <Filter>Source Files\Physics\Managers\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.cpp">
-      <Filter>Source Files\Physics\Managers\Particles\SPHDefault</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\Models\object.cpp">
       <Filter>Source Files\Physics\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.cpp">
+      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\scene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\Camera\camera.cpp">
+      <Filter>Source Files\Models\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\scene_manager.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,8 +203,26 @@
     <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system.h">
       <Filter>Source Files\Physics\Managers\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.h">
-      <Filter>Source Files\Physics\Managers\Particles\SPHDefault</Filter>
+    <ClInclude Include="Physics\PhysicsManagers\Particles\SPHSolvers\sph_solver.h">
+      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.h">
+      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\scene.h">
+      <Filter>Source Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\Camera\camera.h">
+      <Filter>Source Files\Models\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\integration_comparison_scene.h">
+      <Filter>Source Files\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\fluid_scene.h">
+      <Filter>Source Files\Scene\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\scene_manager.h">
+      <Filter>Source Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,9 +233,6 @@
     <None Include="Render\Renderers\default_fluid.fs">
       <Filter>Source Files\Rendering\Renderers\FluidRenderer</Filter>
     </None>
-    <None Include="Physics\PhysicsManagers\Particles\SPHDefault\sph_default.comp">
-      <Filter>Source Files\Physics\Managers\Particles\SPHDefault</Filter>
-    </None>
     <None Include="Physics\PhysicsManagers\Integrate\semi_implicit_euler_integrator.comp">
       <Filter>Source Files\Physics\Managers\Integrate</Filter>
     </None>
@@ -202,6 +241,18 @@
     </None>
     <None Include="Physics\PhysicsManagers\Integrate\leapfrog_integrator.comp">
       <Filter>Source Files\Physics\Managers\Integrate</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\pressure.comp">
+      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\mass_density.comp">
+      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\SPHCommonShaders</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\desbrun_pressure.comp">
+      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\SPHCommonShaders</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\viscosity.comp">
+      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ namespace physics_engine
 	public:
 		virtual ~Object() = 0;
 
-		void setSize(unsigned int size)
+		virtual void setSize(unsigned int size)
 		{
 			m_size = size;
 		}

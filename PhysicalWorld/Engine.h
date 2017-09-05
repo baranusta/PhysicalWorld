@@ -3,6 +3,7 @@
 #include "stdafx.h"
 
 #include "Models\SPHFluid\sph_fluid.h"
+#include "Scene\scene_manager.h"
 
 class Engine
 {
@@ -15,18 +16,16 @@ private:
 	GLFWwindow* window;
 
 	//Components
-	SPHFluid* m_sphfluid;
+	SceneManager m_scene_resolver;
 
-	float m_timeStep = 0.00001;
+	float m_timeStep = 0.00001f;
 
 public:
 	Engine(int height = 600, int width = 800);
 	~Engine();
 
-	SPHFluid* getSPHFluid();
-
-	void addSPHFluid();
-	void removeSPHFluid();
+	void setScene(Scene*);
+	//add bisiler gelcek buraya
 
 	void startGame(std::function<void(void)> gameloop);
 

@@ -6,7 +6,7 @@ namespace physics_engine
 {
 	enum ParticleSystemTypes
 	{
-		SPH_DEFAULT,
+		PBF_MULLER_2003,
 		PARTICLE_SYSTEM_TYPES_SIZE
 	};
 

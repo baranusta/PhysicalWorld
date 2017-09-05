@@ -8,7 +8,6 @@ namespace physics_engine
 	{
 	private:
 		GLuint m_velocities;
-		GLuint m_accelerations;
 		GLuint m_forces;
 	public:
 
@@ -20,11 +19,6 @@ namespace physics_engine
 		{
 			m_velocities = velocities;
 		}
-		
-		void setAccelerations(GLuint accelerations)
-		{
-			m_accelerations = accelerations;
-		}
 
 		void setForces(GLuint forces)
 		{
@@ -34,11 +28,6 @@ namespace physics_engine
 		GLuint getVelocities()
 		{
 			return m_velocities;
-		}
-
-		GLuint getAccelerations()
-		{
-			return m_accelerations;
 		}
 
 		GLuint getForces()

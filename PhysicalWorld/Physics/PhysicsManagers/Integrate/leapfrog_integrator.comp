@@ -6,9 +6,8 @@ layout (local_size_x = 8, local_size_y = 1) in;
 
 layout(std430, binding = 0) buffer position_ssbo{ vec4 position[]; };
 layout(std430, binding = 1) buffer velocity_ssbo{ vec4 velocity[]; };
-layout(std430, binding = 2) buffer acceleration_ssbo{ vec4 acceleration[]; };
-layout(std430, binding = 3) buffer force_ssbo{ vec4 force[]; };
-layout(std430, binding = 4) buffer mass_ssbo{ float mass[]; };
+layout(std430, binding = 2) buffer force_ssbo{ vec4 force[]; };
+layout(std430, binding = 3) buffer mass_ssbo{ float mass[]; };
 
 uniform float timeStep;
 uniform uint size;
@@ -32,6 +31,5 @@ void main(void)
 		#endif
 		
 		velocity[id] = currentVelocity;
-		acceleration[id] = currentAcceleration;
 	}
 }

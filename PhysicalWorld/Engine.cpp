@@ -17,33 +17,18 @@ Engine::Engine(int height, int width)
 
 	GLuint err;
 	while ((err = glGetError()) != GL_NO_ERROR);
-
-	m_sphfluid = nullptr;
-
 }
 
 Engine::~Engine()
 {
 	glfwDestroyWindow(window); 
 	glfwTerminate();
-	removeSPHFluid();
 }
 
-SPHFluid* Engine::getSPHFluid()
+void Engine::setScene(Scene * scene)
 {
-	return m_sphfluid;
-}
-
-void Engine::addSPHFluid()
-{
-	m_sphfluid = new SPHFluid();
-}
-
-void Engine::removeSPHFluid()
-{
-	if (m_sphfluid != nullptr)
-		delete m_sphfluid;
-	m_sphfluid = nullptr;
+	m_scene_resolver.clean();
+	m_scene_resolver.resolveScene(scene);
 }
 
 void Engine::startGame(std::function<void(void)> gameloop)
