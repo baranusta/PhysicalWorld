@@ -30,7 +30,7 @@ namespace render_engine
 		int addRenderer(Renderer* renderer);
 		Renderer* getRenderer(int id);
 
-		void renderScene();
+		void renderScene(Camera& cam);
 
 	};
 }

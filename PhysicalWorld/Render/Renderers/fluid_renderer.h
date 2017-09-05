@@ -21,6 +21,6 @@ namespace render_engine
 
 		VertexArrayObject* getVAO();
 		void setParticleCount(int count);
-		void draw();
+		void draw(Camera& cam);
 	};
 }

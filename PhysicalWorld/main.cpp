@@ -21,7 +21,7 @@ int main()
 			}
 			else if (s % 1000 == 0)
 			{
-				std::cout << s;
+				//std::cout << s;
 			}
 		});
 	}

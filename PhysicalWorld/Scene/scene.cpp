@@ -13,25 +13,25 @@ Scene::~Scene()
 
 std::vector<Particle> Scene::getSPHParticles()
 {
-	return std::vector<Particle>();
+	return {};
 }
 
 std::vector<int> Scene::getStaticObjects()
 {
-	return std::vector<int>();
+	return {};
 }
 
 std::vector<int> Scene::getMovingObjects()
 {
-	return std::vector<int>();
+	return {};
 }
 
 std::vector<int> Scene::getLights()
 {
-	return std::vector<int>();
+	return {};
 }
 
-Camera Scene::getCamera()
+std::vector<Camera*> Scene::getCameras(glm::vec2 size)
 {
-	return Camera();
+	return {};
 }

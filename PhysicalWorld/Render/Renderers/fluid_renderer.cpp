@@ -8,6 +8,8 @@ render_engine::FluidRenderer::FluidRenderer()
 render_engine::FluidRenderer::FluidRenderer(std::string vShader, std::string fShader)
 	:m_shader(vShader, fShader)
 {
+	glUseProgram(m_shader.getProgId());
+	m_cam_matrix = glGetUniformLocation(m_shader.getProgId(), "mat_projView");
 
 }
 
@@ -22,30 +24,20 @@ void render_engine::FluidRenderer::setParticleCount(int count)
 	m_vao.setVertexCount(count);
 }
 
-void render_engine::FluidRenderer::draw()
+void render_engine::FluidRenderer::draw(Camera& cam)
 {
 	glEnable(GL_PROGRAM_POINT_SIZE);
 
-	GLuint err;
-	while ((err = glGetError()) != GL_NO_ERROR) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
-	}
 	glUseProgram(m_shader.getProgId());
-	while ((err = glGetError()) != GL_NO_ERROR) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
-	}
+	
+	glUniformMatrix4fv(m_cam_matrix, 1, GL_FALSE, glm::value_ptr(cam.getProjMat() * cam.getViewMat()));
 
 	//Set the active Vertex array object
 	glBindVertexArray(m_vao.get());
-	while ((err = glGetError()) != GL_NO_ERROR) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
-	}
 	
 	//Draw
 	glDrawArrays(GL_POINTS, 0, m_vao.getVertexCount());
-	while ((err = glGetError()) != GL_NO_ERROR) {
-		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
-	}
+	
 	glBindVertexArray(0);
 	glDisable(GL_PROGRAM_POINT_SIZE);
 }

@@ -5,8 +5,8 @@ void error_callback(int error, const char* description)
 	fprintf(stderr, "Error: %s\n", description);
 }
 
-Engine::Engine(int height, int width)
-	:m_height(height), m_width(width)
+Engine::Engine(glm::vec2 size)
+	:m_size(size), m_scene_manager(size)
 {
 	initializeWindow();
 
@@ -27,8 +27,8 @@ Engine::~Engine()
 
 void Engine::setScene(Scene * scene)
 {
-	m_scene_resolver.clean();
-	m_scene_resolver.resolveScene(scene);
+	m_scene_manager.clean();
+	m_scene_manager.resolveScene(scene);
 }
 
 void Engine::startGame(std::function<void(void)> gameloop)
@@ -39,9 +39,11 @@ void Engine::startGame(std::function<void(void)> gameloop)
 			glfwPollEvents();
 			glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			m_scene_manager.update();
 			gameloop();
 			physics_engine::PhysicsEngine::getInstance().update(m_timeStep);
-			render_engine::RenderEngine::getInstance().renderScene();
+			for(auto camera: m_scene_manager.getCameras())
+				render_engine::RenderEngine::getInstance().renderScene(*camera);
 			glfwSwapBuffers(window);
 		}
 	}
@@ -60,7 +62,7 @@ void Engine::initializeWindow()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	window = glfwCreateWindow(m_width, m_height, "NginR", nullptr, nullptr);
+	window = glfwCreateWindow(m_size.x, m_size.y, "NginR", nullptr, nullptr);
 	if (!window) {
 		throw "can not initialize no window";
 	}
@@ -70,4 +72,5 @@ void Engine::initializeWindow()
 	// Initialize GLEW extension loader
 	glewExperimental = GL_TRUE;
 
+	InputController::getInstance().init(window);
 }

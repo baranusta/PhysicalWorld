@@ -17,7 +17,7 @@ public:
 	//get other scene spesific info
 	//
 
-	virtual Camera getCamera();
+	virtual std::vector<Camera*> getCameras(glm::vec2 size);
 	
 };
 

@@ -4,28 +4,27 @@
 
 #include "Models\SPHFluid\sph_fluid.h"
 #include "Scene\scene_manager.h"
+#include "input_controller.h"
 
 class Engine
 {
 private:
 	void initializeWindow();
 
-	int m_height;
-	int m_width;
+	glm::vec2 m_size;
 
 	GLFWwindow* window;
 
 	//Components
-	SceneManager m_scene_resolver;
+	SceneManager m_scene_manager;
 
 	float m_timeStep = 0.00001f;
 
 public:
-	Engine(int height = 600, int width = 800);
+	Engine(glm::vec2 size = glm::vec2(800,600));
 	~Engine();
 
 	void setScene(Scene*);
-	//add bisiler gelcek buraya
 
 	void startGame(std::function<void(void)> gameloop);
 

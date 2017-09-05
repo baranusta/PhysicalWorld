@@ -34,10 +34,10 @@ render_engine::Renderer * render_engine::RenderEngine::getRenderer(int id)
 	return nullptr;
 }
 
-void render_engine::RenderEngine::renderScene()
+void render_engine::RenderEngine::renderScene(Camera& cam)
 {
 	for (auto renderer : m_renderers)
 	{
-		renderer->draw();
+		renderer->draw(cam);
 	}
 }
