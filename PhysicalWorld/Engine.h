@@ -18,7 +18,7 @@ private:
 	//Components
 	SceneManager m_scene_manager;
 
-	float m_timeStep = 0.00001f;
+	float m_timeStep = 0.001f;
 
 public:
 	Engine(glm::vec2 size = glm::vec2(800,600));

@@ -34,22 +34,22 @@ namespace physics_engine
 			m_Rotations = rotations;
 		}
 
-		GLuint getPositions()
+		GLuint getPositions()const
 		{
 			return m_Positions;
 		}
 
-		GLuint getMass()
+		GLuint getMass()const
 		{
 			return m_mass;
 		}
 
-		GLuint getRotations()
+		GLuint getRotations()const
 		{
 			return m_Rotations;
 		}
 
-		unsigned int getSize()
+		unsigned int getSize()const
 		{
 			return m_size;
 		}

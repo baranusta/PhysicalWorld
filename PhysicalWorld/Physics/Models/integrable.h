@@ -25,12 +25,12 @@ namespace physics_engine
 			m_forces = forces;
 		}
 
-		GLuint getVelocities()
+		GLuint getVelocities()const
 		{
 			return m_velocities;
 		}
 
-		GLuint getForces()
+		GLuint getForces()const
 		{
 			return m_forces;
 		}

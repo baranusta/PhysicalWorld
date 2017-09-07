@@ -44,7 +44,7 @@ namespace physics_engine
 		}
 
 	public:
-		int addFluid(ParticleSystemTypes type, Particle* p);
+		int addFluid(ParticleSystemTypes type, std::shared_ptr<Particle>& p);
 		void remove(int id);
 
 		void setIntegrator(Integrator::IntegratorTypes integratorType, float timeStep);

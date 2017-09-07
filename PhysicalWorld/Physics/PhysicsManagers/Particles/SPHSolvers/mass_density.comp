@@ -12,12 +12,12 @@ uniform uint size;
 
 #define FACTOR 1.5666814
 
-float kernel_poly6(float dist, float h, float h_pow2, float h_pow9)
+float kernel_poly6(float dist_pow2, float h, float h_pow2, float h_pow9)
 {
-	if(dist > h)
+	if(dist_pow2 > h_pow2)
 		return h;
 
-	float value = h_pow2 - dist * dist;
+	float value = h_pow2 - dist_pow2;
 	return FACTOR * value * value * value / h_pow9;
 }
 
@@ -33,7 +33,8 @@ void main(void)
 		float d = 0;
 		for(uint i = (id + 1) % size; i != id ;)
 		{ 
-			d += mass[i] * kernel_poly6(length(pos - position[i]), h, h_pow2, h_pow9);
+			vec3 dist = (pos - position[i]).xyz;
+			d += mass[i] * kernel_poly6(dot(dist,dist), h, h_pow2, h_pow9);
 			i++;
 			i %= size;
 		}

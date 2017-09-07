@@ -105,6 +105,7 @@
     <ClCompile Include="Physics\PhysicsManagers\Integrate\integrator.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Particles\particle_manager.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.cpp" />
+    <ClCompile Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.cpp" />
     <ClCompile Include="Physics\physics_engine.cpp" />
     <ClCompile Include="Render\Models\renderable.cpp" />
     <ClCompile Include="Render\Models\VAOs\vertex_array_object.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="Physics\PhysicsManagers\Particles\particle_manager.h" />
     <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system.h" />
     <ClInclude Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.h" />
+    <ClInclude Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.h" />
     <ClInclude Include="Physics\physics_engine.h" />
     <ClInclude Include="Render\Models\renderable.h" />
     <ClInclude Include="Render\Models\VAOs\fluid_vao.h" />
@@ -156,8 +158,8 @@
     <None Include="Physics\PhysicsManagers\Integrate\semi_implicit_euler_integrator.comp" />
     <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\desbrun_pressure.comp" />
     <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\mass_density.comp" />
-    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\pressure.comp" />
-    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\viscosity.comp" />
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\force_pressure_viscosity.comp" />
+    <None Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\morris_2000.comp" />
     <None Include="Render\common.vs" />
     <None Include="Render\Renderers\default_fluid.fs" />
   </ItemGroup>

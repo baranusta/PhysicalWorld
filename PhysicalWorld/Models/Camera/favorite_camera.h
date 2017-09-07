@@ -49,9 +49,9 @@ public:
 		//std::cout << dir[3] << " " << dir[1] << std::endl;
 
 		glm::vec3 t(0);
-		t.x = dir[3] ? 0.001 : dir[1] ? -0.001 : 0;
-		t.y = dir[0] ? 0.001 : dir[2] ? -0.001 : 0;
-		t.z = dir[4] ? 0.001 : dir[5] ? -0.001 : 0;
+		t.x = dir[3] ? 0.001f : dir[1] ? -0.001f : 0;
+		t.y = dir[0] ? 0.001f : dir[2] ? -0.001f : 0;
+		t.z = dir[4] ? 0.001f : dir[5] ? -0.001f : 0;
 
 		translate(t);
 	}

@@ -11,9 +11,8 @@ Scene::~Scene()
 {
 }
 
-std::vector<Particle> Scene::getSPHParticles()
+void Scene::addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids)
 {
-	return {};
 }
 
 std::vector<int> Scene::getStaticObjects()
@@ -31,7 +30,7 @@ std::vector<int> Scene::getLights()
 	return {};
 }
 
-std::vector<Camera*> Scene::getCameras(glm::vec2 size)
+std::vector<std::shared_ptr<Camera>> Scene::getCameras(glm::vec2 size)
 {
 	return {};
 }

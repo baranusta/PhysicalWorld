@@ -15,7 +15,7 @@ namespace physics_engine
 		}
 
 
-		GLuint getRadius()
+		GLuint getRadius()const
 		{
 			return m_radius;
 		}

@@ -11,24 +11,21 @@ physics_engine::ParticleSystem * physics_engine::ParticleManager::createParticle
 	return nullptr;
 }
 
-int physics_engine::ParticleManager::addParticles(ParticleSystemTypes systemType, Particle * particles)
+void physics_engine::ParticleManager::setParticles(ParticleSystemTypes systemType, std::shared_ptr<Particle> particles)
 {
 	if (m_systems.find(systemType) == m_systems.end())
 	{
 		m_systems[systemType] = createParticleSystem(systemType);
 	}
-	return m_systems[systemType]->addParticles(particles);
+	m_systems[systemType]->setParticles(particles);
 }
 
 void physics_engine::ParticleManager::removeParticles(ParticleSystemTypes systemType, int id)
 {
 	if (m_systems.find(systemType) != m_systems.end())
 	{
-		if (m_systems[systemType]->removeParticles(id) == 0) 
-		{
-			delete m_systems[systemType];
-			m_systems.erase(systemType);
-		}
+		delete m_systems[systemType];
+		m_systems.erase(systemType);
 	}
 }
 

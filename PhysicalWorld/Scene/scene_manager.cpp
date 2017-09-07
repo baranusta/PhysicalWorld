@@ -1,41 +1,14 @@
 #include "scene_manager.h"
 
-#ifndef DELETE_PTR(x)
-#define DELETE_PTR(x) {if(x != nullptr) delete x;}
-#endif
-
-void SceneManager::destroyScene()
-{
-	DELETE_PTR(m_fluid);
-	for (auto& cam : m_cameras)
-		delete cam;
-}
-
-void SceneManager::addFluid(const std::vector<Particle>& data)
-{
-	if (data.size() == 0)
-		return;
-	if (m_fluid == nullptr)
-		m_fluid = new SPHFluid();
-	m_fluid->addParticles(data);
-}
-
 SceneManager::SceneManager(glm::vec2 size)
 {
 	m_size = size;
-	m_fluid = nullptr;
-}
-
-
-SceneManager::~SceneManager()
-{
-	destroyScene();
 }
 
 void SceneManager::resolveScene(Scene * scene)
 {
-	addFluid(scene->getSPHParticles());
-	m_cameras = scene->getCameras(m_size);
+	scene->addSPHFluids(m_fluids);
+	m_cameras = std::move(scene->getCameras(m_size));
 
 
 	delete scene;
@@ -43,10 +16,11 @@ void SceneManager::resolveScene(Scene * scene)
 
 void SceneManager::clean()
 {
-	destroyScene();
+	m_fluids.clear();
+	m_cameras.clear();
 }
 
-std::vector<Camera*> SceneManager::getCameras()
+std::vector<std::shared_ptr<Camera>> SceneManager::getCameras()
 {
 	return m_cameras;
 }

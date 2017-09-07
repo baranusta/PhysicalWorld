@@ -14,9 +14,11 @@ namespace physics_engine
 	private:
 		ParticleSystem* createParticleSystem(ParticleSystemTypes type);
 
+		
 		std::unordered_map<int, ParticleSystem*> m_systems;
 	public:
-		int addParticles(ParticleSystemTypes systemType, Particle* particles);
+
+		void setParticles(ParticleSystemTypes systemType, std::shared_ptr<Particle> particles);
 		void removeParticles(ParticleSystemTypes systemType, int id);
 
 		void computeForces();

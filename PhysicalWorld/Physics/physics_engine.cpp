@@ -21,12 +21,12 @@ void physics_engine::PhysicsEngine::unregister(PhysicalObject object)
 	}
 }
 
-int physics_engine::PhysicsEngine::addFluid(ParticleSystemTypes type, Particle * p)
+int physics_engine::PhysicsEngine::addFluid(ParticleSystemTypes type, std::shared_ptr<Particle>& p)
 {
 	PhysicalObject o;
-	o.particleSystemId = m_pManager.addParticles(type, p);
+	m_pManager.setParticles(type, p);
 	o.particleSystemType = type;
-	o.integratorNonRotatingId = integrator.addIntegrable(Integrator::IntegrableType::NON_ROTATING, p);
+	o.integratorNonRotatingId = integrator.addIntegrable(Integrator::IntegrableType::NON_ROTATING, p.get());
 	registeredObjects[objectCount++] = o;
 	return objectCount;
 }

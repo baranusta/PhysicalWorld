@@ -12,17 +12,13 @@
 class SceneManager
 {
 private:
-	SPHFluid* m_fluid;
+	std::vector<std::unique_ptr<SPHFluid>> m_fluids;
 
 	glm::vec2 m_size;
-	std::vector<Camera*> m_cameras;
+	std::vector<std::shared_ptr<Camera>> m_cameras;
 
-	void destroyScene();
-
-	void addFluid(const std::vector<Particle>&);
 public:
 	SceneManager(glm::vec2 size);
-	~SceneManager();
 
 	//takes a scene pointer and deletes after it is resolved	
 	void resolveScene(Scene* scene);
@@ -30,7 +26,7 @@ public:
 
 	void update();
 
-	std::vector<Camera*> getCameras();
+	std::vector<std::shared_ptr<Camera>> getCameras();
 
 };
 

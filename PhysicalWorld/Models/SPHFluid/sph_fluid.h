@@ -31,7 +31,7 @@ private:
 	int m_physicsId;
 
 	GLuint ssbo[SSBO_TYPES_SIZE];
-	physics_engine::SPHFluid* m_physics_ssbo;
+	std::shared_ptr<physics_engine::SPHFluid> m_physics_ssbo;
 	
 	//values
 	std::vector<glm::vec4> m_vec_positions;
@@ -61,11 +61,13 @@ private:
 
 
 public:
-	SPHFluid(physics_engine::SPHFluid* a = NULL);
+	SPHFluid(physics_engine::ParticleSystemTypes type = physics_engine::ParticleSystemTypes::PBF_MULLER_2003);
 	~SPHFluid();
+
 	
 	//getter
 	int getParticleCount();
 
 	void addParticles(const std::vector<Particle>&);
+	void setSurfaceTensionCoef(float coef);
 };

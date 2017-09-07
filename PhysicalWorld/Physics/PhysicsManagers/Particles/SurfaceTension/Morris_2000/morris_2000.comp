@@ -1,0 +1,85 @@
+#version 430 core
+
+layout (local_size_x = 8, local_size_y = 1) in;
+
+layout(std430, binding = 0) buffer position_ssbo{ vec4 position[]; }; 
+layout(std430, binding = 1) buffer normal_ssbo{ vec4 normal[]; };
+layout(std430, binding = 2) buffer density_ssbo{ float density[];};
+layout(std430, binding = 3) buffer radius_ssbo{ float radius[];};
+layout(std430, binding = 4) buffer mass_ssbo{ float mass[]; };
+layout(std430, binding = 5) buffer force_ssbo{ vec4 force[]; };
+
+uniform uint size;
+uniform uint type;
+uniform float tension_coef;
+
+#define FACTOR -9.400088
+
+
+float kernel_gradient(float dist_pow2, float h, float h_pow2, float h_pow9)
+{
+	if(dist_pow2 >= h * h)
+	{
+		return 0;
+	}
+	
+	return (FACTOR / h_pow9) * sqrt(dist_pow2) * pow(h_pow2 - dist_pow2, 2);
+}
+
+float kernel_laplacian(float dist_pow2, float h, float h_pow2, float h_pow9)
+{
+	if(dist_pow2 >= h * h)
+	{
+		return 0;
+	}
+	float firstTerm = h_pow2 - dist_pow2;
+	float secondTerm = h_pow2 - 5 * dist_pow2;
+	return (FACTOR / h_pow9) * firstTerm * secondTerm;
+}
+
+
+void main(void)
+{
+	uint id = gl_WorkGroupID.x * gl_WorkGroupSize.x + gl_LocalInvocationID.x;
+	if(id < size)
+	{
+		vec4 pos = position[id];
+		float h = radius[id];
+		float h_pow2 = pow(h,2);
+		float h_pow9 = pow(h,9);
+		if(type == 0)
+		{
+			vec3 n = vec3(0);
+			for(uint i=0; i< size; i++)
+			{
+				if(id != i)
+				{
+					vec3 toMe = (pos - position[i]).xyz;
+					n += (mass[i] * kernel_gradient(dot(toMe, toMe), h, h_pow2, h_pow9)/ density[i]) * normalize(toMe);
+				}
+			}
+			//improvement idea
+			//start new kernel for valid normal values maybe?
+			//utilise gpu fully
+			normal[id] = vec4(n,0);
+		}
+		else
+		{
+			vec3 n = normal[id].xyz;
+			float norm_n = length(n);
+			vec3 f = force[id].xyz;
+			if(norm_n > 0.1)
+			{
+				for(uint i=0; i< size; i++)
+				{
+					if(i != id)
+					{
+						vec3 toMe = (pos - position[i]).xyz;
+						f -= (tension_coef * kernel_laplacian(dot(toMe, toMe), h, h_pow2, h_pow9)) * n / norm_n;
+					}
+				}
+				force[id] = vec4(f,0) * mass[id] / density[id];
+			}
+		}
+	}
+}

@@ -13,8 +13,7 @@ namespace physics_engine
 	class ParticleSystem
 	{
 	public:
-		virtual int addParticles(Particle* particles) = 0;
-		virtual int removeParticles(int id) = 0;
+		virtual void setParticles(std::shared_ptr<Particle> particles) = 0;
 
 		virtual void computeForces() = 0;
 	};

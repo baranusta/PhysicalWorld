@@ -76,6 +76,12 @@
     <Filter Include="Source Files\Scene\Scenes">
       <UniqueIdentifier>{361d5f83-6640-4223-86e2-8ec26ae9b605}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics\Managers\Particles\SurfaceTension">
+      <UniqueIdentifier>{12385e45-5eb8-4493-8888-71c8252e2c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000">
+      <UniqueIdentifier>{eef4c146-d846-4c1b-91c2-9a6cec27157c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -134,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="input_controller.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.cpp">
+      <Filter>Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +242,9 @@
     <ClInclude Include="Models\object.h">
       <Filter>Source Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.h">
+      <Filter>Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -251,16 +263,16 @@
     <None Include="Physics\PhysicsManagers\Integrate\leapfrog_integrator.comp">
       <Filter>Source Files\Physics\Managers\Integrate</Filter>
     </None>
-    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\pressure.comp">
-      <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003</Filter>
-    </None>
     <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\mass_density.comp">
       <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\SPHCommonShaders</Filter>
     </None>
     <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\desbrun_pressure.comp">
       <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\SPHCommonShaders</Filter>
     </None>
-    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\viscosity.comp">
+    <None Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\morris_2000.comp">
+      <Filter>Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000</Filter>
+    </None>
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\force_pressure_viscosity.comp">
       <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003</Filter>
     </None>
   </ItemGroup>

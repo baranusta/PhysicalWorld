@@ -1,18 +1,11 @@
 #include "sph_fluid.h"
 
 
-SPHFluid::SPHFluid(physics_engine::SPHFluid* particles)
+SPHFluid::SPHFluid(physics_engine::ParticleSystemTypes type)
 {
-	if (particles == NULL)
-	{
-		m_physics_ssbo = new physics_engine::SPHFluid();
-	}
-	else
-	{
-		m_physics_ssbo = particles;
-	}
-	m_physicsId = physics_engine::PhysicsEngine::getInstance()
-		.addFluid(physics_engine::ParticleSystemTypes::PBF_MULLER_2003, m_physics_ssbo);
+	m_physics_ssbo = std::make_shared<physics_engine::SPHFluid>();
+
+	m_physicsId = physics_engine::PhysicsEngine::getInstance().addFluid(type, std::static_pointer_cast<physics_engine::Particle> (m_physics_ssbo));
 
 	//image allocation
 	glGenBuffers(SSBO_TYPES_SIZE, ssbo);
@@ -24,7 +17,6 @@ SPHFluid::~SPHFluid()
 {
 	glDeleteBuffers(SSBO_TYPES_SIZE, ssbo);
 
-	delete m_physics_ssbo;
 	render_engine::RenderEngine::getInstance().removeRenderer(m_rendererId);
 	physics_engine::PhysicsEngine::getInstance().remove(m_physicsId);
 }
@@ -38,6 +30,7 @@ void SPHFluid::setFluidSSBOs()
 	m_physics_ssbo->setRadius(ssbo[RADIUS]);
 	m_physics_ssbo->setMass(ssbo[MASS]);
 	m_physics_ssbo->setViscosities(ssbo[VISCOSITY]);
+	physics_engine::PhysicsEngine::getInstance();
 }
 
 void SPHFluid::setRenderer()
@@ -133,4 +126,9 @@ void SPHFluid::addParticles(const std::vector<Particle>& p)
 	if (render_engine::FluidRenderer* child = dynamic_cast<render_engine::FluidRenderer*>
 		(render_engine::RenderEngine::getInstance().getRenderer(m_rendererId)))
 		child->setParticleCount(m_particle_count);
+}
+
+void SPHFluid::setSurfaceTensionCoef(float coef)
+{
+	m_physics_ssbo->setTensionCoef(coef);
 }
