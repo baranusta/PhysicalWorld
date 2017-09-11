@@ -21,6 +21,6 @@ namespace physics_engine
 		void setParticles(ParticleSystemTypes systemType, std::shared_ptr<Particle> particles);
 		void removeParticles(ParticleSystemTypes systemType, int id);
 
-		void computeForces();
+		void computeInternalForces();
 	};
 }

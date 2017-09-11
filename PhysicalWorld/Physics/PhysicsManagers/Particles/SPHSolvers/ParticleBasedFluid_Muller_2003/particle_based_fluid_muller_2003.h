@@ -51,8 +51,8 @@ namespace physics_engine
 			index_k_gas_factor = glGetUniformLocation(m_shader_pressure.getProgId(), "k_gas_const");
 
 			glUseProgram(m_shader_force.getProgId());
-			index_size_f = glGetUniformLocation(m_shader_pressure.getProgId(), "size");
-			index_type_f = glGetUniformLocation(m_shader_pressure.getProgId(), "type");
+			index_size_f = glGetUniformLocation(m_shader_force.getProgId(), "size");
+			index_type_f = glGetUniformLocation(m_shader_force.getProgId(), "type");
 
 		}
 

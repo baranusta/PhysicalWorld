@@ -12,6 +12,7 @@ namespace physics_engine
 	class Integrator
 	{
 	private:
+		glm::vec3 gravity;
 		unsigned int integrableInd;
 		unsigned int integrableRotInd;
 
@@ -37,6 +38,7 @@ namespace physics_engine
 		std::unordered_map<int, IntegrableRotating*> integrableRotatings;
 		GLuint m_size_index;
 		GLuint m_timeStep;
+		GLuint m_gravity;
 
 		ComputeShaderController* m_shader;
 
@@ -48,6 +50,8 @@ namespace physics_engine
 
 		void integrate(float timeStep);
 		void setIntegrator(IntegratorTypes integratorType, float timeStep);
+
+		void setGravity(glm::vec3 gravity);
 
 		int addIntegrable(IntegrableType type, Object*);
 		void removeIntegrable(IntegrableType type, int id);

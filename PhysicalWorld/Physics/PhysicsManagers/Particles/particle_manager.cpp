@@ -29,7 +29,7 @@ void physics_engine::ParticleManager::removeParticles(ParticleSystemTypes system
 	}
 }
 
-void physics_engine::ParticleManager::computeForces()
+void physics_engine::ParticleManager::computeInternalForces()
 {
 	for (auto system_man : m_systems)
 	{

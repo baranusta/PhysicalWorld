@@ -70,13 +70,13 @@ void physics_engine::PBF2003::computeForcePressure_Viscosity()
 	while ((err = glGetError()) != GL_NO_ERROR) {
 		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
 	}
-/*
-	glUniform1ui(index_type_f, 1);
+
+	glUniform1ui(index_type_f, 0);
 	m_shader_force.dispatch(DIV_CEIL(m_fluid->getSize(), threadCountDensityX), 1, 1);
 
 
 	glUniform1ui(index_type_f, 1);
-	m_shader_force.dispatch(DIV_CEIL(m_fluid->getSize(), threadCountDensityX), 1, 1);*/
+	m_shader_force.dispatch(DIV_CEIL(m_fluid->getSize(), threadCountDensityX), 1, 1);
 
 }
 

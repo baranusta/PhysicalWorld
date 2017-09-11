@@ -48,6 +48,7 @@ namespace physics_engine
 		void remove(int id);
 
 		void setIntegrator(Integrator::IntegratorTypes integratorType, float timeStep);
+		void setGravity(glm::vec3 gravity);
 
 		void update(float timeStep);
 		

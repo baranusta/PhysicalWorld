@@ -9,6 +9,8 @@ public:
 	Scene();
 	virtual ~Scene();
 
+	virtual glm::vec3 getGravity();
+
 	virtual void addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids);
 	virtual std::vector<int> getStaticObjects();
 	virtual std::vector<int> getMovingObjects();

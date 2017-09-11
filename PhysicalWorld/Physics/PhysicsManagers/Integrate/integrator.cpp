@@ -18,6 +18,8 @@ void physics_engine::Integrator::updateShaderController(IntegratorTypes type, fl
 
 	m_size_index = glGetUniformLocation(m_shader->getProgId(), "size");
 	m_timeStep = glGetUniformLocation(m_shader->getProgId(), "timeStep");
+	m_gravity = glGetUniformLocation(m_shader->getProgId(), "gravity");
+
 	_converDataToRequiredForm(timeStep);
 }
 
@@ -49,12 +51,13 @@ void physics_engine::Integrator::integrate(float timeStep)
 {
 
 	glUseProgram(m_shader->getProgId());
+	glUniform1f(m_timeStep, timeStep);
+	glUniform4f(m_gravity, gravity.x, gravity.y, gravity.z, 0);
 	for (auto obj : integrables)
 	{
 		auto integrable = obj.second;
 		//data
 		glUniform1ui(m_size_index, integrable->getSize());
-		glUniform1f(m_timeStep, timeStep);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, integrable->getPositions());
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, integrable->getVelocities());
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, integrable->getForces());
@@ -62,12 +65,16 @@ void physics_engine::Integrator::integrate(float timeStep)
 		m_shader->dispatch((integrable->getSize() + 7) / 8, 1, 1);
 	}
 
+	GLuint err;
+	while ((err = glGetError()) != GL_NO_ERROR) {
+		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
+	}
+
 	for (auto obj : integrableRotatings)
 	{
 		auto integrable = obj.second;
 		//data
 		glUniform1ui(m_size_index, integrable->getSize());
-		glUniform1f(m_timeStep, timeStep);
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, integrable->getPositions());
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, integrable->getAngularVelocities());
 		glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, integrable->getTorques());
@@ -79,6 +86,11 @@ void physics_engine::Integrator::integrate(float timeStep)
 void physics_engine::Integrator::setIntegrator(IntegratorTypes integratorType, float timeStep)
 {
 	updateShaderController(integratorType, timeStep);
+}
+
+void physics_engine::Integrator::setGravity(glm::vec3 gravity)
+{
+	this->gravity = gravity;
 }
 
 int physics_engine::Integrator::addIntegrable(IntegrableType type, Object * obj)

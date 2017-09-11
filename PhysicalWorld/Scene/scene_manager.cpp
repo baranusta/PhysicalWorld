@@ -10,6 +10,8 @@ void SceneManager::resolveScene(Scene * scene)
 	scene->addSPHFluids(m_fluids);
 	m_cameras = std::move(scene->getCameras(m_size));
 
+	physics_engine::PhysicsEngine::getInstance().setGravity(scene->getGravity());
+
 
 	delete scene;
 }

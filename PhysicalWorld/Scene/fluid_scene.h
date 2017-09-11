@@ -6,6 +6,7 @@
 class FluidScene : public Scene
 {
 	size_t m_sphCount;
+	glm::vec4 m_gravity;
 public:
 	FluidScene(int sphCount)
 	{
@@ -51,5 +52,10 @@ public:
 		cam->updateView();
 
 		return {cam};
+	}
+
+	glm::vec3 getGravity()
+	{
+		return glm::vec3(0, -.81, 0);
 	}
 };

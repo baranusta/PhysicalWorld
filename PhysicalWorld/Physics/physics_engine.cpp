@@ -42,11 +42,16 @@ void physics_engine::PhysicsEngine::setIntegrator(Integrator::IntegratorTypes in
 	integrator.setIntegrator(integratorType, timeStep);
 }
 
+void physics_engine::PhysicsEngine::setGravity(glm::vec3 gravity)
+{
+	integrator.setGravity(gravity);
+}
+
 void physics_engine::PhysicsEngine::update(float timeStep)
 {
 	//collision detection between objects
 	//collision detection between objects and particles
-	m_pManager.computeForces();
+	m_pManager.computeInternalForces();
 	//integrate new values
 	integrator.integrate(timeStep);
 	glMemoryBarrier(GL_VERTEX_ATTRIB_ARRAY_BARRIER_BIT);
