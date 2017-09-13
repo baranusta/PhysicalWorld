@@ -16,7 +16,7 @@ glm::vec3 Scene::getGravity()
 	return glm::vec3();
 }
 
-void Scene::addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids)
+void Scene::addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids, physics_engine::PhysicsEngine&)
 {
 }
 

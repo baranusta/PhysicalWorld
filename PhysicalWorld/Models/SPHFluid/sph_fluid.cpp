@@ -1,11 +1,12 @@
 #include "sph_fluid.h"
 
 
-SPHFluid::SPHFluid(physics_engine::ParticleSystemTypes type)
+SPHFluid::SPHFluid(physics_engine::PhysicsEngine& pEngine, physics_engine::ParticleSystemTypes type)
+	:m_physicsEngine(pEngine)
 {
 	m_physics_ssbo = std::make_shared<physics_engine::SPHFluid>();
 
-	m_physicsId = physics_engine::PhysicsEngine::getInstance().addFluid(type, std::static_pointer_cast<physics_engine::Particle> (m_physics_ssbo));
+	m_physicsEngine.setParticleSystem(type, std::static_pointer_cast<physics_engine::Particle> (m_physics_ssbo));
 
 	//image allocation
 	glGenBuffers(SSBO_TYPES_SIZE, ssbo);
@@ -16,9 +17,8 @@ SPHFluid::SPHFluid(physics_engine::ParticleSystemTypes type)
 SPHFluid::~SPHFluid()
 {
 	glDeleteBuffers(SSBO_TYPES_SIZE, ssbo);
-
 	render_engine::RenderEngine::getInstance().removeRenderer(m_rendererId);
-	physics_engine::PhysicsEngine::getInstance().remove(m_physicsId);
+	m_physicsEngine.remove(physics_engine::PhysicsEngine::FLUID);
 }
 
 void SPHFluid::setFluidSSBOs()
@@ -30,7 +30,6 @@ void SPHFluid::setFluidSSBOs()
 	m_physics_ssbo->setRadius(ssbo[RADIUS]);
 	m_physics_ssbo->setMass(ssbo[MASS]);
 	m_physics_ssbo->setViscosities(ssbo[VISCOSITY]);
-	physics_engine::PhysicsEngine::getInstance();
 }
 
 void SPHFluid::setRenderer()

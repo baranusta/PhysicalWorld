@@ -93,16 +93,16 @@ void physics_engine::Integrator::setGravity(glm::vec3 gravity)
 	this->gravity = gravity;
 }
 
-int physics_engine::Integrator::addIntegrable(IntegrableType type, Object * obj)
+int physics_engine::Integrator::addIntegrable(IntegrableType type, std::shared_ptr<Object> obj)
 {
 	if (type == NON_ROTATING)
 	{
-		Integrable* o = dynamic_cast<Integrable*>(obj);
+		std::shared_ptr<Integrable> o = std::dynamic_pointer_cast<Integrable>(obj);
 		integrables[integrableInd++] = o;
 		return integrableInd;
 	}
 
-	IntegrableRotating* o = dynamic_cast<IntegrableRotating*>(obj);
+	std::shared_ptr<IntegrableRotating> o = std::dynamic_pointer_cast<IntegrableRotating>(obj);
 	integrableRotatings[integrableRotInd++] = o;
 	return integrableRotInd;
 }

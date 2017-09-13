@@ -117,9 +117,6 @@
     <ClCompile Include="Physics\PhysicsManagers\Integrate\integrator.cpp">
       <Filter>Source Files\Physics\Managers\Integrate</Filter>
     </ClCompile>
-    <ClCompile Include="Physics\PhysicsManagers\Particles\particle_manager.cpp">
-      <Filter>Source Files\Physics\Managers\Particles</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\Models\object.cpp">
       <Filter>Source Files\Physics\Models</Filter>
     </ClCompile>
@@ -143,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.cpp">
       <Filter>Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsManagers\Collision\collision.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +209,6 @@
     <ClInclude Include="Physics\Models\object.h">
       <Filter>Source Files\Physics\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Physics\PhysicsManagers\Particles\particle_manager.h">
-      <Filter>Source Files\Physics\Managers\Particles</Filter>
-    </ClInclude>
     <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system.h">
       <Filter>Source Files\Physics\Managers\Particles</Filter>
     </ClInclude>
@@ -244,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.h">
       <Filter>Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Collision\collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system_factory.h">
+      <Filter>Source Files\Physics\Managers\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

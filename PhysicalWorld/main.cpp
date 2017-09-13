@@ -15,14 +15,6 @@ int main()
 		int s = 0;
 		x.startGame([&](void) {
 			s++;
-			if (s == 10000)
-			{
-				physics_engine::PhysicsEngine::getInstance().setIntegrator(physics_engine::Integrator::LEAP_FROG, 0.001f);
-			}
-			else if (s % 1000 == 0)
-			{
-				//std::cout << s;
-			}
 		});
 	}
 	catch (const char* t)

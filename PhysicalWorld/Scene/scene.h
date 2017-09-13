@@ -11,7 +11,7 @@ public:
 
 	virtual glm::vec3 getGravity();
 
-	virtual void addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids);
+	virtual void addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids, physics_engine::PhysicsEngine&);
 	virtual std::vector<int> getStaticObjects();
 	virtual std::vector<int> getMovingObjects();
 	virtual std::vector<int> getLights();

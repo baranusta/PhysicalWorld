@@ -34,8 +34,9 @@ namespace physics_engine
 		void _converDataToRequiredForm(float timeStep);
 
 	protected:
-		std::unordered_map<int, Integrable*> integrables;
-		std::unordered_map<int, IntegrableRotating*> integrableRotatings;
+		//It is a map because it might have fluid, solid object.. vs
+		std::unordered_map<int, std::shared_ptr<Integrable>> integrables;
+		std::unordered_map<int, std::shared_ptr<IntegrableRotating>> integrableRotatings;
 		GLuint m_size_index;
 		GLuint m_timeStep;
 		GLuint m_gravity;
@@ -53,7 +54,7 @@ namespace physics_engine
 
 		void setGravity(glm::vec3 gravity);
 
-		int addIntegrable(IntegrableType type, Object*);
+		int addIntegrable(IntegrableType type, std::shared_ptr<Object>);
 		void removeIntegrable(IntegrableType type, int id);
 	};
 }

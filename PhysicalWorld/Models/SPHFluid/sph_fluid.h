@@ -48,6 +48,7 @@ private:
 	std::vector<float> m_vec_viscosity;
 
 	int m_particle_count = 0;
+	physics_engine::PhysicsEngine& m_physicsEngine;
 private:
 
 	template<class T>
@@ -61,7 +62,7 @@ private:
 
 
 public:
-	SPHFluid(physics_engine::ParticleSystemTypes type = physics_engine::ParticleSystemTypes::PBF_MULLER_2003);
+	SPHFluid(physics_engine::PhysicsEngine& pEngine, physics_engine::ParticleSystemTypes type = physics_engine::ParticleSystemTypes::PBF_MULLER_2003);
 	~SPHFluid();
 
 	

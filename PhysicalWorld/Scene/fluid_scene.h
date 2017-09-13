@@ -13,9 +13,9 @@ public:
 		m_sphCount = sphCount;
 	}
 
-	void addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids)
+	void addSPHFluids(std::vector<std::unique_ptr<SPHFluid>>& fluids, physics_engine::PhysicsEngine& pEngine)
 	{
-		auto fluid = std::unique_ptr<SPHFluid>(new SPHFluid());
+		auto fluid = std::unique_ptr<SPHFluid>(new SPHFluid(pEngine));
 		unsigned int x = (unsigned int)glm::pow(m_sphCount, 1.f / 3.f);
 		std::vector<Particle> particles(x * x * x);
 		int t = 0;

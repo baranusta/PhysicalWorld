@@ -2,6 +2,7 @@
 
 #include "..\..\Models\particle.h"
 
+
 namespace physics_engine
 {
 	enum ParticleSystemTypes
@@ -15,6 +16,6 @@ namespace physics_engine
 	public:
 		virtual void setParticles(std::shared_ptr<Particle> particles) = 0;
 
-		virtual void computeForces() = 0;
+		virtual void computeInternalForces() = 0;
 	};
 }

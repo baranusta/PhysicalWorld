@@ -17,6 +17,7 @@ private:
 
 	//Components
 	SceneManager m_scene_manager;
+	physics_engine::PhysicsEngine m_physicsEngine;
 
 	float m_timeStep = 0.001f;
 

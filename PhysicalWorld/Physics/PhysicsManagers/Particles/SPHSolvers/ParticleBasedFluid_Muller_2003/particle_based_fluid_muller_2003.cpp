@@ -98,7 +98,7 @@ void physics_engine::PBF2003::setParticles(std::shared_ptr<Particle> particles)
 	}
 }
 
-void physics_engine::PBF2003::computeForces()
+void physics_engine::PBF2003::computeInternalForces()
 {
 	computeDensity();
 	computePressure();

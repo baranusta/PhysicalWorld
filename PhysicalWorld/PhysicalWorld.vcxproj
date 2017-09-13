@@ -102,8 +102,8 @@
     <ClCompile Include="Models\Particle\particle.cpp" />
     <ClCompile Include="Models\SPHFluid\sph_fluid.cpp" />
     <ClCompile Include="Physics\Models\object.cpp" />
+    <ClCompile Include="Physics\PhysicsManagers\Collision\collision.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Integrate\integrator.cpp" />
-    <ClCompile Include="Physics\PhysicsManagers\Particles\particle_manager.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.cpp" />
     <ClCompile Include="Physics\physics_engine.cpp" />
@@ -129,8 +129,9 @@
     <ClInclude Include="Physics\Models\object.h" />
     <ClInclude Include="Physics\Models\particle.h" />
     <ClInclude Include="Physics\Models\sph_fluid.h" />
+    <ClInclude Include="Physics\PhysicsManagers\Collision\collision.h" />
     <ClInclude Include="Physics\PhysicsManagers\Integrate\integrator.h" />
-    <ClInclude Include="Physics\PhysicsManagers\Particles\particle_manager.h" />
+    <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system_factory.h" />
     <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system.h" />
     <ClInclude Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.h" />
     <ClInclude Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.h" />

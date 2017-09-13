@@ -1,16 +1,17 @@
 #include "scene_manager.h"
 
-SceneManager::SceneManager(glm::vec2 size)
+SceneManager::SceneManager(glm::vec2 size, physics_engine::PhysicsEngine& pEngine)
+	:m_physicsEngine(pEngine)
 {
 	m_size = size;
 }
 
 void SceneManager::resolveScene(Scene * scene)
 {
-	scene->addSPHFluids(m_fluids);
+	scene->addSPHFluids(m_fluids, m_physicsEngine);
 	m_cameras = std::move(scene->getCameras(m_size));
 
-	physics_engine::PhysicsEngine::getInstance().setGravity(scene->getGravity());
+	m_physicsEngine.setGravity(scene->getGravity());
 
 
 	delete scene;

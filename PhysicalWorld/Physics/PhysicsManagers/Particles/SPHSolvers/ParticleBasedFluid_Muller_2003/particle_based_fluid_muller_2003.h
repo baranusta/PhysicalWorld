@@ -58,6 +58,6 @@ namespace physics_engine
 
 		void setParticles(std::shared_ptr<Particle> particles);
 
-		void computeForces();
+		void computeInternalForces();
 	};
 }
