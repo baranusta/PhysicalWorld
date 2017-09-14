@@ -56,6 +56,6 @@ public:
 
 	glm::vec3 getGravity()
 	{
-		return glm::vec3(0, -.81, 0);
+		return glm::vec3(0, -9.8, 0);
 	}
 };

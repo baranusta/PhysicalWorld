@@ -28,7 +28,10 @@ void physics_engine::PhysicsEngine::setParticleSystem(ParticleSystemTypes type, 
 
 void physics_engine::PhysicsEngine::remove(PhysicalSystems systemType, int level)
 {
-	if (!registeredSystems[systemType][level].isSet)
+	if (registeredSystems.size() <= systemType)
+		return;
+
+	if (registeredSystems[systemType][level].isSet)
 		throw std::string("already unset...");
 
 	unregister(registeredSystems[systemType][level]);
@@ -52,6 +55,7 @@ void physics_engine::PhysicsEngine::update(float timeStep)
 	for (auto&& pSystem : m_pSystems)
 	{
 		pSystem.second->computeInternalForces();
+		pSystem.second->computeExternalForces(glm::vec3(0));
 	}
 	//integrate new values
 	integrator.integrate(timeStep);

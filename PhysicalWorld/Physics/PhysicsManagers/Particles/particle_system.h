@@ -17,5 +17,6 @@ namespace physics_engine
 		virtual void setParticles(std::shared_ptr<Particle> particles) = 0;
 
 		virtual void computeInternalForces() = 0;
+		virtual void computeExternalForces(glm::vec3 gravity/*diger objelerle collision falan*/) = 0;
 	};
 }

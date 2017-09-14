@@ -82,6 +82,9 @@
     <Filter Include="Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000">
       <UniqueIdentifier>{eef4c146-d846-4c1b-91c2-9a6cec27157c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{e5f97efc-59e6-4fe7-8941-63e0fba8c1eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,9 +143,6 @@
     </ClCompile>
     <ClCompile Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.cpp">
       <Filter>Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000</Filter>
-    </ClCompile>
-    <ClCompile Include="Physics\PhysicsManagers\Collision\collision.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +248,9 @@
     <ClInclude Include="Physics\PhysicsManagers\Particles\particle_system_factory.h">
       <Filter>Source Files\Physics\Managers\Particles</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\fps_controller.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -275,7 +278,7 @@
     <None Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\morris_2000.comp">
       <Filter>Source Files\Physics\Managers\Particles\SurfaceTension\Morris_2000</Filter>
     </None>
-    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\force_pressure_viscosity.comp">
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\force.comp">
       <Filter>Source Files\Physics\Managers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003</Filter>
     </None>
   </ItemGroup>

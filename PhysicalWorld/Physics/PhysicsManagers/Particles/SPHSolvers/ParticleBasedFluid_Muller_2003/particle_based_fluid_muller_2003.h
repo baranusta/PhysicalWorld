@@ -26,6 +26,7 @@ namespace physics_engine
 
 		GLuint index_size_f;
 		GLuint index_type_f;
+		GLuint index_gravity_f;
 
 		unsigned int addedSystemCount;
 
@@ -39,7 +40,7 @@ namespace physics_engine
 		PBF2003()
 			: m_shader_density(PBF2003_DIR "mass_density.comp"),
 			m_shader_pressure(PBF2003_DIR "desbrun_pressure.comp"),
-			m_shader_force(PBF2003_DIR "ParticleBasedFluid_Muller_2003\\force_pressure_viscosity.comp")
+			m_shader_force(PBF2003_DIR "ParticleBasedFluid_Muller_2003\\force.comp")
 		{
 			addedSystemCount = 0;
 
@@ -53,11 +54,13 @@ namespace physics_engine
 			glUseProgram(m_shader_force.getProgId());
 			index_size_f = glGetUniformLocation(m_shader_force.getProgId(), "size");
 			index_type_f = glGetUniformLocation(m_shader_force.getProgId(), "type");
+			index_gravity_f = glGetUniformLocation(m_shader_force.getProgId(), "gravity");
 
 		}
 
 		void setParticles(std::shared_ptr<Particle> particles);
 
-		void computeInternalForces();
+		void computeInternalForces() override;
+		void computeExternalForces(glm::vec3 gravity) override;
 	};
 }

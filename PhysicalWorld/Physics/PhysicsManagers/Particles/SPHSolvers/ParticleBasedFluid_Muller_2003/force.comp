@@ -12,6 +12,7 @@ layout(std430, binding = 6) buffer mass_ssbo{ float mass[]; };
 layout(std430, binding = 7) buffer force_ssbo{ vec4 force[]; };
 
 uniform uint size;
+uniform vec3 gravity;
 uniform uint type;
 
 #define FACTOR 4.774648
@@ -39,17 +40,10 @@ float kernel_viscosity(float distance, float h, float h_pow2, float h_pow3)
 	return (FACTOR / h_pow2) * (firstTirm + secondTirm + thirdTirm - 1);
 }
 
-
-void main(void)
+void computePressureForces(uint id, vec4 pos, float h)
 {
-	uint id = gl_WorkGroupID.x * gl_WorkGroupSize.x + gl_LocalInvocationID.x;
-	if(id < size)
-	{ 
-		vec4 pos = position[id];
-		float h = radius[id];
 		vec3 f = vec3(0);
-		if(type == 0)
-		{
+		
 			float p = pressure[id];
 			float h_pow6 = pow(h,6);
 			for(int i=0; i< size; i++)
@@ -60,10 +54,12 @@ void main(void)
 					f -= (mass[i] * (p + pressure[i]) * kernel_spiky(length(toMe), h, h_pow6)/ (density[i] * 2)) * normalize(toMe);
 			}
 			force[id] = vec4(f,0);
-		}
-		else
-		{
-			
+}
+
+void computeViscosityForce(uint id, vec4 pos, float h)
+{
+		vec3 f = vec3(0);
+
 			float h_pow2 = pow(h,2);
 			float h_pow3 = pow(h,3);
 			vec4 v = velocity[id];
@@ -75,6 +71,45 @@ void main(void)
 					f += (mass[i] * (velocity[i] - v).xyz * kernel_viscosity(length(toMe), h, h_pow2, h_pow3)/ density[i]);
 			}
 			force[id] += vec4(f,0) * viscosity[id];
+}
+
+#define XX 0.8
+void computeExternalForces(uint id, vec4 pos, float h)
+{
+	//force[id] += vec4(gravity, 0);
+	vec4 vel = velocity[id];
+	vec4 res = clamp(pos,-XX,XX);
+	if (res.x != pos.x)
+		vel.x *= -1;
+	if (res.y != pos.y)
+		vel.y *= -1;
+	if (res.z != pos.z)
+		vel.z *= -1;
+
+	velocity[id] = vel;
+	position[id] = res; 
+}
+
+void main(void)
+{
+	uint id = gl_WorkGroupID.x * gl_WorkGroupSize.x + gl_LocalInvocationID.x;
+	if(id < size)
+	{ 
+		vec4 pos = position[id];
+		float h = radius[id];
+		switch(type)
+		{
+			case 0:
+			computePressureForces(id, pos, h);
+			break;
+			case 1:
+			computeViscosityForce(id, pos,h);
+			break;
+			case 2:
+			//computeExternalForces(id, pos, h);
+			break;
+			default:
+			break;
 		}
 	}
 }

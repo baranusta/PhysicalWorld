@@ -103,7 +103,34 @@ void physics_engine::PBF2003::computeInternalForces()
 	computeDensity();
 	computePressure();
 
-	computeForcePressure_Viscosity();
 	computeSurfaceTensionForce();
+	computeForcePressure_Viscosity();
 
+}
+
+void physics_engine::PBF2003::computeExternalForces(glm::vec3 gravity)
+{
+	m_shader_force.setMacro("THREAD_COUNT_X", threadCount_f_PressureX);
+	glUseProgram(m_shader_force.getProgId());
+
+	//data
+	glUniform1ui(index_size_f, m_fluid->getSize());
+	//glUniform3f(index_gravity_f, gravity.x, gravity.y, gravity.z);
+
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, m_fluid->getPositions());
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, m_fluid->getVelocities());
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, m_fluid->getDensities());
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, m_fluid->getPressures());
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, m_fluid->getViscosities());
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 5, m_fluid->getRadius());
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 6, m_fluid->getMass());
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 7, m_fluid->getForces());
+
+	GLuint err;
+	while ((err = glGetError()) != GL_NO_ERROR) {
+		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
+	}
+
+	glUniform1ui(index_type_f, 2);
+	m_shader_force.dispatch(DIV_CEIL(m_fluid->getSize(), threadCountDensityX), 1, 1);
 }

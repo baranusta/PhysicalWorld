@@ -45,6 +45,9 @@ Engine::Engine(glm::vec2 size)
 	:window(initWindow(size)), m_physicsEngine(), m_size(size), m_scene_manager(size, m_physicsEngine)
 {
 	initializeWindow();
+	m_fpsController.addListener([&](int fps) {
+		std::cout << fps<< std::endl;
+	});
 }
 
 Engine::~Engine()
@@ -62,6 +65,7 @@ void Engine::setScene(Scene * scene)
 void Engine::startGame(std::function<void(void)> gameloop)
 {
 	{
+		m_fpsController.startTimer();
 		glEnable(GL_DEPTH_TEST);
 		while (!glfwWindowShouldClose(window)) {
 			glfwPollEvents();
@@ -74,6 +78,7 @@ void Engine::startGame(std::function<void(void)> gameloop)
 			for(auto camera: m_scene_manager.getCameras())
 				render_engine::RenderEngine::getInstance().renderScene(*camera);
 			glfwSwapBuffers(window);
+			m_fpsController.update();
 		}
 	}
 }

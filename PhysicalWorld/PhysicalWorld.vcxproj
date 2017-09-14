@@ -102,7 +102,6 @@
     <ClCompile Include="Models\Particle\particle.cpp" />
     <ClCompile Include="Models\SPHFluid\sph_fluid.cpp" />
     <ClCompile Include="Physics\Models\object.cpp" />
-    <ClCompile Include="Physics\PhysicsManagers\Collision\collision.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Integrate\integrator.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\particle_based_fluid_muller_2003.cpp" />
     <ClCompile Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\st_morris_2000.cpp" />
@@ -151,6 +150,7 @@
     <ClInclude Include="ShaderController\shader.h" />
     <ClInclude Include="ShaderController\shader_controller.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Utils\fps_controller.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -159,7 +159,7 @@
     <None Include="Physics\PhysicsManagers\Integrate\semi_implicit_euler_integrator.comp" />
     <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\desbrun_pressure.comp" />
     <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\mass_density.comp" />
-    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\force_pressure_viscosity.comp" />
+    <None Include="Physics\PhysicsManagers\Particles\SPHSolvers\ParticleBasedFluid_Muller_2003\force.comp" />
     <None Include="Physics\PhysicsManagers\Particles\SurfaceTension\Morris_2000\morris_2000.comp" />
     <None Include="Render\common.vs" />
     <None Include="Render\Renderers\default_fluid.fs" />

@@ -5,6 +5,7 @@
 #include "Models\SPHFluid\sph_fluid.h"
 #include "Scene\scene_manager.h"
 #include "input_controller.h"
+#include "Utils\fps_controller.h"
 
 class Engine
 {
@@ -18,6 +19,7 @@ private:
 	//Components
 	SceneManager m_scene_manager;
 	physics_engine::PhysicsEngine m_physicsEngine;
+	FPSController m_fpsController;
 
 	float m_timeStep = 0.001f;
 
@@ -28,6 +30,7 @@ public:
 	void setScene(Scene*);
 
 	void startGame(std::function<void(void)> gameloop);
+	
 
 
 };
