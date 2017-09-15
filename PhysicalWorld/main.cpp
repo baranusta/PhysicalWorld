@@ -11,6 +11,10 @@ extern "C" {
 int main()
 {
 	std::cout << "yo!\n";
+	InputController::getInstance().registerKey("shader compile - main", [](int key, int action) {
+		if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+			ShaderController::markAllDirty();
+	});
 
 	try {
 

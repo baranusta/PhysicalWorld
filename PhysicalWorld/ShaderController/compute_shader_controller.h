@@ -48,8 +48,7 @@ public:
 		if (!shouldRecompile)
 			return;
 
-		GLuint compute_shader = compile(GL_COMPUTE_SHADER, fileName_C, macros);
-		linkShader(prog, compute_shader);
+		attachShaders(prog);
 		shouldRecompile = false;
 	}
 
@@ -74,6 +73,12 @@ public:
 			macros.erase(name);
 			shouldRecompile = true;
 		}
+	}
+
+	void markDirty()
+	{
+		shouldRecompile = true;
+		std::cout << "Marked Dirty";
 	}
 };
 

@@ -75,9 +75,17 @@ void ShaderController::createShader(std::string name)
 			std::cout << logBuffer.data();
 			throw std::logic_error(logBuffer.data());
 		}
-		shaders.insert({ name, new Shader(prog) });
+		shaders.insert({ name, new Shader(prog, this) });
 	}
 	else
 		shaders[name]->usedBy++;
 	m_name = name;
+}
+
+void ShaderController::markAllDirty()
+{
+	for (auto shader : shaders)
+	{
+		shader.second->m_shader->markDirty();
+	}
 }

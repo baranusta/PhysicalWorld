@@ -22,7 +22,7 @@ protected:
 	std::string m_name;
 
 
-	std::string readFile(std::string fileName)
+	std::string readFile(std::string fileName);
 
 	void appendMacros(std::string& source, const std::unordered_map<std::string, std::string>& macros);
 
@@ -53,6 +53,10 @@ public:
 				shaders[m_name]->usedBy--;
 		}
 	}
+
+	static void markAllDirty();
+
+	virtual void markDirty() = 0;
 
 	GLuint getProgId() 
 	{ 

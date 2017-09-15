@@ -2,13 +2,17 @@
 
 #include "..\stdafx.h"
 
+class ShaderController;
+
 class Shader
 {
 public:
 	int usedBy;
+	ShaderController* m_shader;
 	GLuint shaderProgram;
-	Shader(GLuint shaderProg) :
-		shaderProgram(shaderProg), usedBy(1)
+	
+	Shader(GLuint shaderProg, ShaderController* shader) :
+		shaderProgram(shaderProg), usedBy(1), m_shader(shader)
 	{}
 
 	Shader() :

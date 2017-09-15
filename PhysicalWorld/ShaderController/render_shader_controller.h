@@ -10,9 +10,12 @@ private:
 	std::string fileName_V;
 	std::string fileName_F;
 
+	bool shouldRecompile;
+
 public:
 	RenderShaderController(std::string fileName_V, std::string fileName_F)
 	{
+		shouldRecompile = false;
 		this->fileName_V = fileName_V;
 		this->fileName_F = fileName_F;
 		std::string name = fileName_V + fileName_F;
@@ -38,12 +41,25 @@ public:
 
 	void recompile(GLuint prog)
 	{
+		//This does not have to be same with compute shaders
+		// for the time being I dont care if both of the shaders are recompiled.
+		if (!shouldRecompile)
+			return;
+
+		attachShaders(prog);
+		shouldRecompile = false;
 	}
 
 	void setMacroVS()
 	{}
 	void setMacroFS() 
 	{}
+
+	void markDirty()
+	{
+		shouldRecompile = true;
+		std::cout << "Marked Dirty vs-fs";
+	}
 
 	void operator()() 
 	{ 
