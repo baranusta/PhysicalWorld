@@ -25,18 +25,18 @@ public:
 			{
 				for (unsigned int k = 0; k < x; k++)
 				{
-					Particle p = Particle();
+					Particle p = Particle();  
 					p.position = glm::vec4( - 0.5 + 0.1 * k, -0.5 + 0.1 * j, -0.5 + 0.1 * i, 1.);
-					p.mass = 0.1f;
-					p.radius = 0.12f;
-					p.viscosity = 0.5f;
-					p.rest_density = 0.6f;
+					p.mass = 1.0f;
+					p.radius = 1.2f;
+					p.viscosity = 0.8f;
+					p.rest_density = 1.5f;
 
 					particles[t++] = p;
 				}
 			}
 		}
-		fluid->setSurfaceTensionCoef(.001f);
+		fluid->setSurfaceTensionCoef(.1f);
 		fluid->addParticles(particles);
 
 		fluids.push_back(std::move(fluid));
@@ -45,7 +45,7 @@ public:
 	std::vector<std::shared_ptr<Camera>> getCameras(glm::vec2 size)
 	{
 		std::shared_ptr<Camera> cam = std::shared_ptr<FavoriteCamera>(new FavoriteCamera(size));
-		cam->setCenter(glm::vec3(0.f, 0.f, 1.2f));
+		cam->setCenter(glm::vec3(0.f, 0.f, 2.f));
 		cam->setLookAt(glm::vec3(0.f, 0.f, 0.f));
 		cam->setUp(glm::vec3(0.f, 1.f, 0.f));
 		cam->updateProjection();

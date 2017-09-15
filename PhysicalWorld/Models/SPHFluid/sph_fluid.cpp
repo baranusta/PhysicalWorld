@@ -34,23 +34,21 @@ void SPHFluid::setFluidSSBOs()
 
 void SPHFluid::setRenderer()
 {
-	render_engine::FluidRenderer* renderer = new render_engine::FluidRenderer();
-	m_rendererId = render_engine::RenderEngine::getInstance().addRenderer(renderer);
+	auto renderer = std::unique_ptr<render_engine::FluidRenderer>(new render_engine::FluidRenderer);
 
-	render_engine::VertexArrayObject* vao = renderer->getVAO();
-	vao->setBuffer<glm::vec4>(BUF_POSITION, ssbo[POSITIONS]);
-
-	vao->setBuffer<float>(BUF_RADIUS, ssbo[RADIUS]);
-	vao->setBuffer<float>(BUF_C_SPECULAR, ssbo[COLOR_SPECULAR]);
-	vao->setBuffer<glm::vec4>(BUF_C_AMBIENT, ssbo[COLOR_AMBIENT]);
-	vao->setBuffer<glm::vec4>(BUF_C_DIFFUSE, ssbo[COLOR_DIFFUSE]);
+	renderer->setBuffer<glm::vec4>(BUF_POSITION, ssbo[POSITIONS]);
+	renderer->setBuffer<float>(BUF_RADIUS, ssbo[RADIUS]);
+	renderer->setBuffer<float>(BUF_C_SPECULAR, ssbo[COLOR_SPECULAR]);
+	renderer->setBuffer<glm::vec4>(BUF_C_AMBIENT, ssbo[COLOR_AMBIENT]);
+	renderer->setBuffer<glm::vec4>(BUF_C_DIFFUSE, ssbo[COLOR_DIFFUSE]);
 
 #ifdef _DEBUG
-	vao->setBuffer<float>(BUF_MASS, ssbo[MASS]);
-	vao->setBuffer<float>(BUF_FORCE, ssbo[FORCE]);
-	vao->setBuffer<float>(BUF_VISCOSITY, ssbo[VISCOSITY]);
+	renderer->setBuffer<float>(BUF_MASS, ssbo[MASS]);
+	renderer->setBuffer<float>(BUF_FORCE, ssbo[FORCE]);
+	renderer->setBuffer<float>(BUF_VISCOSITY, ssbo[VISCOSITY]);
 #endif
-	vao->setVertexCount(m_particle_count);
+	renderer->setCount(m_particle_count);
+	m_rendererId = render_engine::RenderEngine::getInstance().addRenderer(std::move(renderer));
 }
 
 template<class T>
@@ -122,9 +120,7 @@ void SPHFluid::addParticles(const std::vector<Particle>& p)
 	}
 	m_particle_count += p.size();
 	updateSSBOs();
-	if (render_engine::FluidRenderer* child = dynamic_cast<render_engine::FluidRenderer*>
-		(render_engine::RenderEngine::getInstance().getRenderer(m_rendererId)))
-		child->setParticleCount(m_particle_count);
+	render_engine::RenderEngine::getInstance().setRendererVertexCount(m_rendererId, m_particle_count);
 }
 
 void SPHFluid::setSurfaceTensionCoef(float coef)

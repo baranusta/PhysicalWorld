@@ -55,7 +55,9 @@ void main(void)
 				if(id != i)
 				{
 					vec3 toMe = (pos - position[i]).xyz;
-					n += (mass[i] * kernel_gradient(dot(toMe, toMe), h, h_pow2, h_pow9)/ density[i]) * normalize(toMe);
+					float dens = density[i];
+					if(dens != 0)
+					n += (mass[i] * kernel_gradient(dot(toMe, toMe), h, h_pow2, h_pow9)/ dens) * normalize(toMe);
 				}
 			}
 			//improvement idea
@@ -78,7 +80,9 @@ void main(void)
 						f -= (tension_coef * kernel_laplacian(dot(toMe, toMe), h, h_pow2, h_pow9)) * n / norm_n;
 					}
 				}
-				force[id] = vec4(f,0) * mass[id] / density[id];
+				float dens = density[id];
+				if(dens != 0)
+					force[id] = vec4(f,0) * mass[id] / dens;
 			}
 		}
 	}

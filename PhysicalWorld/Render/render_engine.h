@@ -8,12 +8,11 @@ namespace render_engine
 	class RenderEngine
 	{
 	private:
-		std::vector<Renderer*> m_renderers;
+		std::vector<std::unique_ptr<Renderer>> m_renderers;
 	private:
 		RenderEngine();
 
 	public:
-		~RenderEngine();
 		RenderEngine(RenderEngine&) = delete;
 		void operator=(RenderEngine&) = delete;
 
@@ -27,8 +26,8 @@ namespace render_engine
 		bool removeRenderer(int id);
 
 		//If the owner of the renderer is destructed, the renderer has to be removed.
-		int addRenderer(Renderer* renderer);
-		Renderer* getRenderer(int id);
+		int addRenderer(std::unique_ptr<Renderer> renderer);
+		void setRendererVertexCount(int id, int count);
 
 		void renderScene(Camera& cam);
 

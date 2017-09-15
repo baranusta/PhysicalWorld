@@ -1,4 +1,5 @@
 #include "particle_based_fluid_muller_2003.h"
+#include "..\..\..\..\..\input_controller.h"
 
 
 int threadCountDensityX = 8;
@@ -6,6 +7,7 @@ int threadCountPressureX = 8;
 int threadCount_f_PressureX = 8;
 int threadCount_f_ViscosityX = 8;
 
+bool a = false;
 void physics_engine::PBF2003::computeDensity()
 {
 	m_shader_density.setMacro("THREAD_COUNT_X", threadCountDensityX);
@@ -96,6 +98,11 @@ void physics_engine::PBF2003::setParticles(std::shared_ptr<Particle> particles)
 	{
 		throw std::invalid_argument("Invalid particle system and particles.");
 	}
+
+	InputController::getInstance().registerKey("debug", [&](int key, int action) {
+		if (key == GLFW_KEY_A)
+			a = action == GLFW_PRESS;
+	});
 }
 
 void physics_engine::PBF2003::computeInternalForces()
@@ -103,10 +110,39 @@ void physics_engine::PBF2003::computeInternalForces()
 	computeDensity();
 	computePressure();
 
+	if (a)
+	{
+		std::vector<glm::vec4> pos(m_fluid->getSize());
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_fluid->getPositions()); // 
+		GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
+
+		memcpy(&pos[0], s, sizeof(glm::vec4) * m_fluid->getSize());
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+	}
 	computeSurfaceTensionForce();
+
+	if (a)
+	{
+		std::vector<glm::vec4> pos(m_fluid->getSize());
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_fluid->getPositions()); // 
+		GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
+
+		memcpy(&pos[0], s, sizeof(glm::vec4) * m_fluid->getSize());
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+	}
 	computeForcePressure_Viscosity();
+	if (a)
+	{
+		std::vector<glm::vec4> pos(m_fluid->getSize());
+		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_fluid->getPositions()); // 
+		GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
+
+		memcpy(&pos[0], s, sizeof(glm::vec4) * m_fluid->getSize());
+		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+	}
 
 }
+
 
 void physics_engine::PBF2003::computeExternalForces(glm::vec3 gravity)
 {
@@ -130,7 +166,8 @@ void physics_engine::PBF2003::computeExternalForces(glm::vec3 gravity)
 	while ((err = glGetError()) != GL_NO_ERROR) {
 		std::cout << __FILE__ << " " << __LINE__ << " " << "OpenGL error: " << err << gluErrorString(err) << std::endl;
 	}
-
+	
 	glUniform1ui(index_type_f, 2);
 	m_shader_force.dispatch(DIV_CEIL(m_fluid->getSize(), threadCountDensityX), 1, 1);
+
 }

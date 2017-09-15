@@ -54,7 +54,6 @@ void render_engine::VertexArrayObject::setBuffer(int bufferType, GLuint buffer)
 		buffers[bufferType] = buffer;
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	int c = sizeof(T) / sizeof(float);
 	glVertexAttribPointer(bufferType, sizeof(T) / sizeof(float), GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(bufferType);
 

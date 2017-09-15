@@ -11,16 +11,13 @@ namespace render_engine
 	class FluidRenderer: public Renderer
 	{
 	private:
-		VertexArrayObject m_vao;
-		unsigned int m_count;
 		RenderShaderController m_shader;
+		GLuint m_screenSize;
 
 	public:
 		FluidRenderer();
 		FluidRenderer(std::string vShader, std::string fShader);
 
-		VertexArrayObject* getVAO();
-		void setParticleCount(int count);
 		void draw(Camera& cam);
 	};
 }

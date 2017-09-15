@@ -32,6 +32,8 @@ public:
 	glm::mat4 getViewMat();
 	glm::mat4 getProjMat();
 
+	glm::vec2 getSize();
+
 	//These methods has to be called after properties are changed
 	void updateView();
 	void updateProjection();

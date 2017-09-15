@@ -20,16 +20,16 @@ uniform uint type;
 
 float kernel_spiky(float distance, float h, float h_pow6)
 {
-	if(distance > h)
+	if(distance >= h)
 	{
 		return 0.f;
 	}
-	return FACTOR * pow(distance - h, 3) / h_pow6;
+	return FACTOR * pow(h - distance, 3) / h_pow6;
 }
 
 float kernel_viscosity(float distance, float h, float h_pow2, float h_pow3)
 {
-	if(distance > h)
+	if(distance >= h)
 	{
 		return 0;
 	}
@@ -42,35 +42,37 @@ float kernel_viscosity(float distance, float h, float h_pow2, float h_pow3)
 
 void computePressureForces(uint id, vec4 pos, float h)
 {
-		vec3 f = vec3(0);
+	vec3 f = vec3(0);
 		
-			float p = pressure[id];
-			float h_pow6 = pow(h,6);
-			for(int i=0; i< size; i++)
-			{
-				vec3 toMe = (position[i] - pos).xyz;
-				float distance = length(toMe);
-				if(distance > 0)
-					f -= (mass[i] * (p + pressure[i]) * kernel_spiky(length(toMe), h, h_pow6)/ (density[i] * 2)) * normalize(toMe);
-			}
-			force[id] = vec4(f,0);
+	float p = pressure[id];
+	float h_pow6 = pow(h,6);
+	for(int i=0; i< size; i++)
+	{
+		vec3 toMe = (position[i] - pos).xyz;
+		float distance = length(toMe);
+		float dens = density[i];
+		if(distance > 0.0001 && dens != 0)
+		f -= (mass[i] * (p + pressure[i]) * kernel_spiky(length(toMe), h, h_pow6)/ (dens * 2)) * normalize(toMe);
+	}
+	force[id] = vec4(f,0);
 }
 
 void computeViscosityForce(uint id, vec4 pos, float h)
 {
-		vec3 f = vec3(0);
+	vec3 f = vec3(0);
 
-			float h_pow2 = pow(h,2);
-			float h_pow3 = pow(h,3);
-			vec4 v = velocity[id];
-			for(uint i=0; i< size; i++)
-			{
-				vec3 toMe = (pos - position[i]).xyz;
-				float distance = length(toMe);
-				if(distance > 0)
-					f += (mass[i] * (velocity[i] - v).xyz * kernel_viscosity(length(toMe), h, h_pow2, h_pow3)/ density[i]);
-			}
-			force[id] += vec4(f,0) * viscosity[id];
+	float h_pow2 = pow(h,2);
+	float h_pow3 = pow(h,3);
+	vec4 v = velocity[id];
+	for(uint i=0; i< size; i++)
+	{
+		vec3 toMe = (pos - position[i]).xyz;
+		float distance = length(toMe);
+		float dens = density[i];
+		if(distance > 0.0001 && dens != 0)
+			f += (mass[i] * (velocity[i] - v).xyz * kernel_viscosity(length(toMe), h, h_pow2, h_pow3)/ dens);
+	}
+	force[id] += vec4(f,0) * viscosity[id];
 }
 
 #define XX 0.8
@@ -79,10 +81,14 @@ void computeExternalForces(uint id, vec4 pos, float h)
 	//force[id] += vec4(gravity, 0);
 	vec4 vel = velocity[id];
 	vec4 res = clamp(pos,-XX,XX);
+	res.y = pos.y;
 	if (res.x != pos.x)
 		vel.x *= -1;
-	if (res.y != pos.y)
+	if (res.y < -XX)
+	{
 		vel.y *= -1;
+		res.y = -XX;
+	}
 	if (res.z != pos.z)
 		vel.z *= -1;
 
@@ -106,7 +112,7 @@ void main(void)
 			computeViscosityForce(id, pos,h);
 			break;
 			case 2:
-			//computeExternalForces(id, pos, h);
+			computeExternalForces(id, pos, h);
 			break;
 			default:
 			break;

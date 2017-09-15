@@ -3,9 +3,9 @@
 #include "Engine.h"
 #include "Scene\fluid_scene.h"
 
-//extern "C" {
-//	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
-//}
+extern "C" {
+	_declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+}
 
 
 int main()
@@ -15,7 +15,7 @@ int main()
 	try {
 
 		Engine x;
-		x.setScene(new FluidScene(100));
+		x.setScene(new FluidScene(1000));
 		
 		int s = 0;
 		x.startGame([&](void) {

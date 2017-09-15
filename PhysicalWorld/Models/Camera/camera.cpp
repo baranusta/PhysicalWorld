@@ -55,3 +55,8 @@ glm::mat4 Camera::getProjMat()
 {
 	return m_projection;
 }
+
+glm::vec2 Camera::getSize()
+{
+	return m_size;
+}

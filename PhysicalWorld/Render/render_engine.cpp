@@ -6,12 +6,6 @@ render_engine::RenderEngine::RenderEngine()
 
 }
 
-render_engine::RenderEngine::~RenderEngine()
-{
-	for (auto r : m_renderers)
-		delete r;
-}
-
 bool render_engine::RenderEngine::removeRenderer(int id)
 {
 	if (m_renderers.size() <= id)
@@ -21,22 +15,21 @@ bool render_engine::RenderEngine::removeRenderer(int id)
 	return true;
 }
 
-int render_engine::RenderEngine::addRenderer(Renderer* renderer)
+int render_engine::RenderEngine::addRenderer(std::unique_ptr<Renderer> renderer)
 {
-	m_renderers.push_back(renderer);
+	m_renderers.push_back(std::move(renderer));
 	return m_renderers.size() - 1;
 }
 
-render_engine::Renderer * render_engine::RenderEngine::getRenderer(int id)
+void render_engine::RenderEngine::setRendererVertexCount(int id, int count)
 {
-	if(m_renderers.size()>id)
-		return m_renderers[id];
-	return nullptr;
+	if (m_renderers.size() > id)
+		m_renderers[id]->setCount(count);
 }
 
 void render_engine::RenderEngine::renderScene(Camera& cam)
 {
-	for (auto renderer : m_renderers)
+	for (auto&& renderer : m_renderers)
 	{
 		renderer->draw(cam);
 	}

@@ -21,7 +21,7 @@ private:
 	physics_engine::PhysicsEngine m_physicsEngine;
 	FPSController m_fpsController;
 
-	float m_timeStep = 0.001f;
+	float m_timeStep = 0.0001f;
 
 public:
 	Engine(glm::vec2 size = glm::vec2(800,600));
