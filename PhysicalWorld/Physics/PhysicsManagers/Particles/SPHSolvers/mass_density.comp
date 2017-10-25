@@ -31,7 +31,7 @@ void main(void)
 		float h_pow2 = h * h;
 		float h_pow9 = pow(h,9);
 		float d = 0;
-		for(uint i = 0 ; i <= size ; i++)
+		for(uint i = 0 ; i < size ; i++)
 		{ 
 			vec3 dist = (pos - position[i]).xyz;
 			if(i != id)

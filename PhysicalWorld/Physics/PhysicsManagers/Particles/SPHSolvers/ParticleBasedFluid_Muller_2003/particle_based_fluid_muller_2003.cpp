@@ -110,36 +110,17 @@ void physics_engine::PBF2003::computeInternalForces()
 	computeDensity();
 	computePressure();
 
-	if (a)
-	{
-		std::vector<glm::vec4> pos(m_fluid->getSize());
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_fluid->getPositions()); // 
-		GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
+	//if (a)
+	//{
+	//	std::vector<glm::vec4> pos(m_fluid->getSize());
+	//	glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_fluid->getPositions()); // 
+	//	GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
 
-		memcpy(&pos[0], s, sizeof(glm::vec4) * m_fluid->getSize());
-		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-	}
-	computeSurfaceTensionForce();
-
-	if (a)
-	{
-		std::vector<glm::vec4> pos(m_fluid->getSize());
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_fluid->getPositions()); // 
-		GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
-
-		memcpy(&pos[0], s, sizeof(glm::vec4) * m_fluid->getSize());
-		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-	}
+	//	memcpy(&pos[0], s, sizeof(glm::vec4) * m_fluid->getSize());
+	//	glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+	//}
+	//computeSurfaceTensionForce();
 	computeForcePressure_Viscosity();
-	if (a)
-	{
-		std::vector<glm::vec4> pos(m_fluid->getSize());
-		glBindBuffer(GL_SHADER_STORAGE_BUFFER, m_fluid->getPositions()); // 
-		GLvoid* s = glMapBuffer(GL_SHADER_STORAGE_BUFFER, GL_READ_ONLY);
-
-		memcpy(&pos[0], s, sizeof(glm::vec4) * m_fluid->getSize());
-		glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-	}
 
 }
 

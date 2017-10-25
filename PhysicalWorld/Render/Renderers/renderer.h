@@ -10,6 +10,7 @@ namespace render_engine
 	{
 	protected:
 		GLuint m_cam_matrix;
+		GLuint m_cam_inv_matrix;
 		VertexArrayObject m_vao;
 		int m_count;
 

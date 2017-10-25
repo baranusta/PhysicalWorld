@@ -14,6 +14,6 @@ void main(void)
 	uint id = gl_WorkGroupID.x * gl_WorkGroupSize.x + gl_LocalInvocationID.x;
 	if(id < size)
 	{
-		pressure[id] = k_gas_const * (current_density[id] - rest_density[id]);
+		pressure[id] = k_gas_const  * (current_density[id] - rest_density[id]);
 	}
 }

@@ -13,6 +13,8 @@ namespace render_engine
 	private:
 		RenderShaderController m_shader;
 		GLuint m_screenSize;
+		GLuint m_camNearFar;
+		GLuint m_camPos;
 
 	public:
 		FluidRenderer();

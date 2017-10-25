@@ -27,16 +27,16 @@ public:
 				{
 					Particle p = Particle();  
 					p.position = glm::vec4( - 0.5 + 0.1 * k, -0.5 + 0.1 * j, -0.5 + 0.1 * i, 1.);
-					p.mass = 1.0f;
-					p.radius = 1.2f;
-					p.viscosity = 0.8f;
-					p.rest_density = 1.5f;
+					p.mass = 10.0f;
+					p.radius = 1.8f;
+					p.viscosity = .00f;
+					p.rest_density = 3.f;
 
 					particles[t++] = p;
 				}
 			}
 		}
-		fluid->setSurfaceTensionCoef(.1f);
+		fluid->setSurfaceTensionCoef(1.5f);
 		fluid->addParticles(particles);
 
 		fluids.push_back(std::move(fluid));
@@ -56,6 +56,6 @@ public:
 
 	glm::vec3 getGravity()
 	{
-		return glm::vec3(0, -9.8, 0);
+		return glm::vec3(0, -15.8, 0);
 	}
 };

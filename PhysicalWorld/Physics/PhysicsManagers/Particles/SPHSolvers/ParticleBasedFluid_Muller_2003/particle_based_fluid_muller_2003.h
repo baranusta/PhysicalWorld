@@ -6,7 +6,7 @@
 #include "..\..\SurfaceTension\Morris_2000\st_morris_2000.h"
 
 #define PBF2003_DIR "Physics\\PhysicsManagers\\Particles\\SPHSolvers\\"
-#define K_GAS_FACTOR 70.0f
+#define K_GAS_FACTOR 10.0f
 
 namespace physics_engine
 {

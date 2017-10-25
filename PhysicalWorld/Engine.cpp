@@ -47,7 +47,6 @@ Engine::Engine(glm::vec2 size)
 	m_fpsController.addListener([&](int fps) {
 		std::cout << fps<< std::endl;
 	});
-	m_physicsEngine.setIntegrator(physics_engine::Integrator::IntegratorTypes::LEAP_FROG, m_timeStep);
 }
 
 Engine::~Engine()

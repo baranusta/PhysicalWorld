@@ -56,6 +56,11 @@ glm::mat4 Camera::getProjMat()
 	return m_projection;
 }
 
+glm::vec2 Camera::getNearFar()
+{
+	return glm::vec2(0.1,30);
+}
+
 glm::vec2 Camera::getSize()
 {
 	return m_size;

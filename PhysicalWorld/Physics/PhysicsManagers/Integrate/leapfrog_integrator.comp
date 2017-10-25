@@ -22,13 +22,13 @@ void main(void)
 		vec4 currentAcceleration = (force[id] / mass[id]) + gravity;
 			
 		#ifdef FIRST_RUN
-			currentVelocity += currentAcceleration * timeStep / 2;
+			currentVelocity += 0.99 * currentAcceleration * timeStep / 2;
 		#elif defined(LAST_RUN)
 			position[id] += currentVelocity * timeStep;
-			currentVelocity += currentAcceleration * timeStep/ 2;
+			currentVelocity += 0.99 * currentAcceleration * timeStep/ 2;
 		#else
 			position[id] += currentVelocity * timeStep;
-			currentVelocity += currentAcceleration * timeStep ;
+			currentVelocity += 0.99 * currentAcceleration * timeStep ;
 		#endif
 		
 		velocity[id] = currentVelocity;
